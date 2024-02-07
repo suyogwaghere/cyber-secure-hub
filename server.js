@@ -127,7 +127,7 @@ if (process.env.DISABLE_GUI && process.env.DISABLE_GUI !== "false") {
     const htmlContent = placeholderContent.replace(
       "<!-- CONTENT -->",
       "Looks like the GUI app has not yet been compiled.<br /> " +
-        "Run <code>yarn build</code> to continue, then restart the server."
+        "Run <code>npm build</code> to continue, then restart the server."
     );
     res.status(500).send(htmlContent);
   });
