@@ -14,7 +14,7 @@ const guiPath = path.join(__dirname, "build");
 const placeholderFilePath = path.join(__dirname, "public", "placeholder.html");
 const handlers = {}; // Will store list of API endpoints
 process.env.WC_SERVER = "true"; // Tells middleware to return in non-lambda mode
-
+app.use(express.json());
 // Enable CORS
 app.use(
   cors({
@@ -39,6 +39,15 @@ fs.readdirSync(dirPath, { withFileTypes: true })
       }
     });
   });
+
+// Import middleware and routes from API_B
+// const { verifyToken } = require("./middleware/jwt"); // Import the verifyToken middleware
+require("./connection/db"); // Import Sequelize instance
+// const User = require("./models/User"); // Import User model
+const userRoute = require("./routes/userRoute.js");
+
+// Use the routes from API_B
+app.use("/api/user", userRoute);
 
 // Create a single API endpoint to execute all lambda functions
 app.get("/api", async (req, res) => {
