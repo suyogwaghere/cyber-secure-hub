@@ -4,6 +4,7 @@ import Styled from "styled-components";
 
 import About from "pages/About";
 import Home from "pages/Home";
+import Login from "pages/Login";
 import NotFound from "pages/NotFound";
 import Results from "pages/Results";
 import colors from "styles/colors";
@@ -11,8 +12,7 @@ import colors from "styles/colors";
 const Container = Styled.main`
   background: ${colors.background};
   color: ${colors.textColor};
-  // width: 100vw;
-  // height: 100vh;
+ 
   margin: 0;
 `;
 
@@ -34,7 +34,8 @@ function App() {
     <Container>
       <Routes>
         <Route path="*" element={<NotFound />} />
-        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />
         <Route path="/results/:address" element={<Results />} />
       </Routes>

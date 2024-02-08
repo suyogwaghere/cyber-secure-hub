@@ -40,20 +40,16 @@ const Link = styled.a`
 `;
 
 const Footer = (props: { isFixed?: boolean }): JSX.Element => {
-  const licenseUrl =
-    "https://github.com/suyogwaghere/cyber-secure-hub/blob/master/LICENSE";
-  const authorUrl = "https://aliciasykes.com";
-  const githubUrl = "https://github.com/suyogwaghere/cyber-secure-hub";
   return (
     <StyledFooter style={props.isFixed ? { position: "fixed" } : {}}>
       <span>
         View source at{" "}
-        <Link href={githubUrl}>github.com/suyogwaghere/cyber-secure-hub</Link>
+        <Link href={"#"}>github.com/suyogwaghere/cyber-secure-hub</Link>
       </span>
       <span>
         <Link href="/about">Cyber-Secure-Hub</Link> is licensed under{" "}
-        <Link href={licenseUrl}>MIT</Link> - ©{" "}
-        <Link href={authorUrl}>Suyog Waghere</Link> 2023
+        <Link href={"#"}>MIT</Link> - © <Link href={"#"}>Suyog Waghere</Link>{" "}
+        2023
       </span>
     </StyledFooter>
   );

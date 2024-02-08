@@ -13,6 +13,7 @@ import docs from "utils/docs";
 
 const HomeContainer = styled.section`
   display: flex;
+  margin-top: 6rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -93,7 +94,7 @@ const SiteFeaturesWrapper = styled(StyledCard)`
 `;
 
 const Home = (): JSX.Element => {
-  const defaultPlaceholder = "e.g. https://duck.com/";
+  const defaultPlaceholder = "e.g. https://example.com/";
   const [userInput, setUserInput] = useState("");
   const [errorMsg, setErrMsg] = useState("");
   const [placeholder] = useState(defaultPlaceholder);
