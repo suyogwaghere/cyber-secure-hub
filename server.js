@@ -42,9 +42,8 @@ fs.readdirSync(dirPath, { withFileTypes: true })
 
 // Import middleware and routes from API_B
 // const { verifyToken } = require("./middleware/jwt"); // Import the verifyToken middleware
-require("./connection/db"); // Import Sequelize instance
-// const User = require("./models/User"); // Import User model
-const userRoute = require("./routes/userRoute.js");
+require("./api/connection/db"); // Import Sequelize instance
+const userRoute = require("./api/routes/userRoute");
 
 // Use the routes from API_B
 app.use("/api/user", userRoute);
