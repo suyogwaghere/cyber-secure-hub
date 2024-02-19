@@ -141,6 +141,7 @@ const Input = (inputProps: Props): JSX.Element => {
             inputSize={size}
             isValidEmail={isValidEmail1}
             email={email}
+            autoComplete="off"
           />
         </InputContainer>
       )}
@@ -156,6 +157,7 @@ const Input = (inputProps: Props): JSX.Element => {
             isValidPassword={isValidPassword1}
             password={password}
             type="password"
+            autoComplete="off"
           />
         </InputContainer>
       )}

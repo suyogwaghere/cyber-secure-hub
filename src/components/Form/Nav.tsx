@@ -1,8 +1,10 @@
 import styled from "styled-components";
 
+import { Box } from "@mui/material";
 import { StyledCard } from "components/Form/Card";
 import Heading from "components/Form/Heading";
 import { ReactNode } from "react";
+import { useRouter } from "routes/hook";
 import colors from "styles/colors";
 
 const Header = styled(StyledCard)`
@@ -17,6 +19,7 @@ const Header = styled(StyledCard)`
 `;
 
 const Nav = (props: { children?: ReactNode }) => {
+  const router = useRouter();
   return (
     <Header as="header">
       <Heading color={colors.primary} size="large">
@@ -30,7 +33,16 @@ const Nav = (props: { children?: ReactNode }) => {
             marginRight: "0.5rem",
           }}
         />
-        <a href="/">Cyber Secure Hub</a>
+        <Box
+          onClick={() => {
+            router.push("/");
+          }}
+          sx={{
+            cursor: "pointer",
+          }}
+        >
+          Cyber Secure Hub
+        </Box>
       </Heading>
       {props.children && props.children}
     </Header>

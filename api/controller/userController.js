@@ -11,16 +11,24 @@ const register = async (req, res) => {
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create a new user using Sequelize
-    const user = await User.create({
+    const userExists = await User.findOne({ where: { email } });
+
+    if (userExists) {
+      return res.status(400).send("User already exists");
+    }
+
+    const userNew = {
       name,
       email,
       mobile,
       password: hashedPassword,
-    });
+    };
+
+    // Create a new user using Sequelize
+    const user = await User.create(userNew);
     res.send(`User registered successfully with email: ${user.email}`);
   } catch (error) {
-    res.status(500).json({
+    res.status(400).json({
       error: error.message,
       message: "Error: User registration failed",
     });
@@ -70,14 +78,18 @@ const login = async (req, res) => {
   }
 };
 
-// Get user information controller
 const me = async (req, res) => {
   try {
-    // Retrieve the user ID from the decoded token
-    const userId = req.body.userId;
+    // Extract the token from the Authorization header
+    const token = extractToken(req.headers.authorization);
 
-    const user = await User.findByPk(userId);
+    // Verify the token
+    const decodedUser = await verifyToken(token);
 
+    // Retrieve the user from the database using the user ID from the decoded token
+    const user = await User.findByPk(decodedUser.userId);
+
+    // Check if the user exists
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -86,15 +98,43 @@ const me = async (req, res) => {
     const userWithoutPassword = _.omit(user.dataValues, "password");
 
     // Send the user information in the response
-    res.json({
-      user: userWithoutPassword,
-    });
+    res.json({ user: userWithoutPassword });
   } catch (error) {
+    // Handle errors
     res.status(500).json({
       error: error.message,
       message: "Error: Unable to retrieve user information",
     });
   }
+};
+
+// Function to extract token from Authorization header
+const extractToken = (authorizationHeader) => {
+  if (!authorizationHeader) {
+    throw new Error("Authorization header is missing");
+  }
+  if (!authorizationHeader.startsWith("Bearer")) {
+    throw new Error("Authorization header is not of type Bearer");
+  }
+  const parts = authorizationHeader.split(" ");
+  if (parts.length !== 2) {
+    throw new Error(
+      "Authorization header has too many parts. It must follow this pattern: 'Bearer xx.yy.zz'"
+    );
+  }
+  return parts[1];
+};
+
+// Function to verify token
+const verifyToken = (token) => {
+  return new Promise((resolve, reject) => {
+    jwt.verify(token, process.env.secretKey, (err, decoded) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(decoded);
+    });
+  });
 };
 
 module.exports = {

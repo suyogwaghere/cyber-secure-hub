@@ -6,12 +6,15 @@ import Button from "components/Form/Button";
 import Heading from "components/Form/Heading";
 import Input from "components/Form/Input";
 
+import { Box, Link, Typography } from "@mui/material";
+import { useAuthContext } from "auth/hooks";
+import Navbar from "components/Navbar";
 import colors from "styles/colors";
 import { determineAddressType } from "utils/address-type-checker";
 
 const HomeContainer = styled.section`
   display: flex;
-  margin-top: 6rem;
+  margin-top: 1rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -26,12 +29,13 @@ const HomeContainer = styled.section`
 const UserInputMain = styled.form`
   background: ${colors.backgroundLighter};
   box-shadow: 4px 4px 0px ${colors.bgShadowColor};
+  margin-top: 5rem !important;
   border-radius: 8px;
   padding: 1rem;
   z-index: 5;
   margin: 1rem;
-  width: calc(100% - 2rem);
-  max-width: 50rem;
+  width: calc(100% - 5rem);
+  max-width: 40rem;
   z-index: 2;
 `;
 
@@ -40,7 +44,9 @@ const ErrorMessage = styled.p`
   margin: 0.5rem;
 `;
 
-const Login = (): JSX.Element => {
+interface LoginProps {}
+
+const Login: React.FC<LoginProps> = () => {
   const [userData, setUserData] = useState({
     userEmail: "",
     userPassword: "",
@@ -49,6 +55,7 @@ const Login = (): JSX.Element => {
   const [errorMsg, setErrMsg] = useState("");
   const [inputDisabled] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAuthContext();
 
   const isEmailValid = (email: string): boolean => {
     // Regular expression for email validation
@@ -83,12 +90,16 @@ const Login = (): JSX.Element => {
   };
 
   /* Check is valid address, either show err or redirect to results page */
-  const submit = () => {
+  const submit = async () => {
     // Call the function and set the error message
     setErrMsg(validateUserData(userData));
-
-    navigate(`/login`);
-    // }
+    try {
+      await login(userData.userEmail, userData.userPassword);
+      navigate("/home");
+    } catch (error) {
+      console.error(error);
+      setErrMsg("Invalid email or password");
+    }
   };
 
   /* Update user input state, and hide error message if field is valid */
@@ -103,46 +114,93 @@ const Login = (): JSX.Element => {
     if (!isError) setErrMsg("");
   };
 
-  const formSubmitEvent = (event: FormEvent<HTMLFormElement>) => {
+  const formSubmitEvent = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    submit();
+    // setErrMsg(validateUserData(userData));
+    // try {
+    //   await login(userData.userEmail, userData.userPassword);
+    //   navigate("/home");
+    // } catch (error) {
+    //   console.error(error);
+    //   setErrMsg("Invalid email or password");
+    // }
   };
 
   return (
     <HomeContainer>
+      <Navbar />
       <UserInputMain onSubmit={formSubmitEvent}>
         <Heading as="h1" size="xLarge" align="center" color={colors.primary}>
-          Sign in to User
-        </Heading>
-        <Input
-          id="userEmail"
-          value={userData.userEmail}
-          email
-          size="large"
-          orientation="vertical"
-          placeholder="Enter email"
-          disabled={inputDisabled}
-          handleChange={inputChange}
-        />
-        <Input
-          id="userPassword"
-          value={userData.userPassword}
-          password
-          email={false}
-          size="large"
-          orientation="vertical"
-          placeholder="Enter password"
-          disabled={inputDisabled}
-          handleChange={inputChange}
-        />
-        {errorMsg && <ErrorMessage>{errorMsg}</ErrorMessage>}
-        <Button
-          styles="width: calc(100% - 1rem);"
-          size="large"
-          onClick={submit}
-        >
           Login
-        </Button>
+        </Heading>
+        <Typography
+          variant="h6"
+          sx={{
+            marginTop: "2rem",
+            marginLeft: "1rem",
+            color: colors.primary,
+            alignSelf: "center",
+          }}
+        >
+          Welcome back! Please sign in to continue.
+        </Typography>
+        <Box sx={{}}>
+          <Input
+            id="userEmail"
+            value={userData.userEmail}
+            email
+            size="large"
+            orientation="vertical"
+            placeholder="Enter email"
+            disabled={inputDisabled}
+            handleChange={inputChange}
+          />
+          <Input
+            id="userPassword"
+            value={userData.userPassword}
+            password
+            email={false}
+            size="large"
+            orientation="vertical"
+            placeholder="Enter password"
+            disabled={inputDisabled}
+            handleChange={inputChange}
+          />
+          {errorMsg && <ErrorMessage>{errorMsg}</ErrorMessage>}
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "calc(100% - 2rem)",
+            margin: "1rem",
+          }}
+        >
+          <Button styles="width:50%" size="medium" onClick={submit}>
+            Login
+          </Button>
+          <Typography
+            variant="body1"
+            sx={{
+              marginTop: "1rem",
+              color: colors.primary,
+            }}
+          >
+            New user?{" "}
+            <Link
+              component="button"
+              variant="body1"
+              onClick={() => {
+                console.info("I'm a button.");
+                navigate("/auth/jwt/register");
+              }}
+            >
+              Create an account
+            </Link>
+          </Typography>
+        </Box>
       </UserInputMain>
     </HomeContainer>
   );

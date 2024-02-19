@@ -451,7 +451,7 @@ const docs: Doc[] = [
     resources: [
       {
         title: "Wappalyzer fingerprints",
-        link: "https://github.com/wappalyzer/wappalyzer/tree/master/src/technologies",
+        link: "https://github.com/wappalyzer/wappalyzer/tree/master/technologies",
       },
       {
         title: "BuiltWith - Check what tech a site is using",
@@ -815,7 +815,7 @@ tester or are just interested in discovering the underlying technologies of a gi
 ];
 
 export const license = `The MIT License (MIT)
-Copyright (c) Suyog Waghere <alicia@omg.com> 
+Copyright (c) Suyog Waghere <suyogwaghere@gmail.com> 
 
 Permission is hereby granted, free of charge, to any person obtaining a copy 
 of this software and associated documentation files (the "Software"), to deal 

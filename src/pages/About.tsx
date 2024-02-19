@@ -1,18 +1,19 @@
 import styled from "styled-components";
 
+import { Box } from "@mui/material";
 import { StyledCard } from "components/Form/Card";
 import Heading from "components/Form/Heading";
 import Nav from "components/Form/Nav";
+import Navbar from "components/Navbar";
 import AdditionalResources from "components/misc/AdditionalResources";
+import Footer from "components/misc/Footer";
 import colors from "styles/colors";
 import docs, { about, featureIntro } from "utils/docs";
 
 const AboutContainer = styled.div`
-  // width: 95vw;
   display: flex;
   flex-direction: column;
-  // max-width: 1000px;
-  margin: 1rem 15rem;
+  margin: 1rem;
   header {
     margin: 1rem 0;
     width: auto;
@@ -38,6 +39,18 @@ const Section = styled(StyledCard)`
   margin-bottom: 2rem;
   overflow: clip;
   max-height: 100%;
+  .about-section {
+    color: ${colors.textColor};
+  }
+  .features-section {
+    color: ${colors.textColor} !important;
+  }
+  h4 {
+    color: ${colors.textColor} !important;
+  }
+  p {
+    color: ${colors.textColor} !important;
+  }
   section {
     clear: both;
   }
@@ -50,6 +63,7 @@ const Section = styled(StyledCard)`
     margin: 1.5rem auto;
   }
   ul {
+    color: ${colors.textColor};
     padding: 0 0 0 1rem;
     list-style: circle;
   }
@@ -119,6 +133,8 @@ const About = (): JSX.Element => {
   return (
     <div>
       <AboutContainer>
+        <Navbar />
+        {/* <Footer isFixed /> */}
         <Nav>
           <HeaderLinkContainer>
             {/* <a href="https://github.com/suyogwaghere/cyber-secure-hub">
@@ -132,7 +148,9 @@ const About = (): JSX.Element => {
         </Heading>
         <Section>
           {about.map((para, index: number) => (
-            <p key={index}>{para}</p>
+            <p className="about-section" key={index}>
+              {para}
+            </p>
           ))}
           <hr />
         </Section>
@@ -140,7 +158,7 @@ const About = (): JSX.Element => {
         <Heading as="h2" size="medium" color={colors.primary}>
           Features
         </Heading>
-        <Section>
+        <Section className="features-section">
           {featureIntro.map((fi: string, i: number) => (
             <p key={i}>{fi}</p>
           ))}
@@ -237,11 +255,21 @@ const About = (): JSX.Element => {
             </section>
           ))}
         </Section>
-
-        <Heading as="h2" size="medium" color={colors.primary}>
-          Additional Resources
-        </Heading>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            marginBottom: "2rem",
+            gap: "1rem",
+          }}
+        >
+          <Heading as="h2" size="medium" color={colors.primary}>
+            Additional Resources
+          </Heading>
+        </Box>
         <AdditionalResources />
+        <Footer />
       </AboutContainer>
     </div>
   );

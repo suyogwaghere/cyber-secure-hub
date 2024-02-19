@@ -1,18 +1,15 @@
 import * as Sentry from "@sentry/react";
-import { Route, Routes } from "react-router-dom";
+import { AuthConsumer, AuthProvider } from "auth/context/jwt";
+import Router from "routes/sections";
 import Styled from "styled-components";
 
-import About from "pages/About";
-import Home from "pages/Home";
-import Login from "pages/Login";
-import NotFound from "pages/NotFound";
-import Results from "pages/Results";
 import colors from "styles/colors";
 
 const Container = Styled.main`
   background: ${colors.background};
   color: ${colors.textColor};
- 
+// width: 98vw;
+    // height: 89vh;
   margin: 0;
 `;
 
@@ -29,18 +26,16 @@ Sentry.init({
   },
 });
 
-function App() {
+const App: React.FC = () => {
   return (
     <Container>
-      <Routes>
-        <Route path="*" element={<NotFound />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/results/:address" element={<Results />} />
-      </Routes>
+      <AuthProvider>
+        <AuthConsumer>
+          <Router />
+        </AuthConsumer>
+      </AuthProvider>
     </Container>
   );
-}
+};
 
 export default App;

@@ -61,6 +61,8 @@ import TraceRouteCard from "components/Results/TraceRoute";
 import TxtRecordCard from "components/Results/TxtRecords";
 import WhoIsCard from "components/Results/WhoIs";
 
+import Navbar from "components/Navbar";
+import Footer from "components/misc/Footer";
 import useMotherHook from "hooks/motherOfAllHooks";
 import { AddressType, determineAddressType } from "utils/address-type-checker";
 import keys from "utils/get-keys";
@@ -266,7 +268,7 @@ const Results = (): JSX.Element => {
 
   const urlTypeOnly = ["url"] as AddressType[]; // Many jobs only run with these address types
 
-  const api = process.env.REACT_APP_API_ENDPOINT || "/api"; // Where is the API hosted?
+  const api = process.env.REACT_APP_HOST_APIA || "/api"; // Where is the API hosted?
 
   // Fetch and parse IP address for given URL
   const [ipAddress, setIpAddress] = useMotherHook({
@@ -984,6 +986,7 @@ const Results = (): JSX.Element => {
 
   return (
     <ResultsOuter>
+      <Navbar />
       <Nav>
         {address && (
           <Heading color={colors.textColor} size="medium">
@@ -1131,6 +1134,7 @@ const Results = (): JSX.Element => {
         theme="dark"
         position="bottom-right"
       />
+      <Footer />
     </ResultsOuter>
   );
 };

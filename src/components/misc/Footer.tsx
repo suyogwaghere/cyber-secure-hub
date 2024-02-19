@@ -1,11 +1,15 @@
+import { useAuthContext } from "auth/hooks";
 import styled from "styled-components";
 import colors from "styles/colors";
 
 const StyledFooter = styled.footer`
   bottom: 0;
-  width: 100%;
+  z-index: 99;
+  // margin-bottom: 1rem;
   text-align: center;
   padding: 0.5rem 0;
+  border-radius: 8px;
+  font-size: 1.2rem;
   background: ${colors.backgroundDarker};
   display: flex;
   justify-content: space-around;
@@ -40,17 +44,25 @@ const Link = styled.a`
 `;
 
 const Footer = (props: { isFixed?: boolean }): JSX.Element => {
+  const { user } = useAuthContext();
+  console.log("🚀 ~ user:", user);
   return (
-    <StyledFooter style={props.isFixed ? { position: "fixed" } : {}}>
+    <StyledFooter
+      style={
+        props.isFixed
+          ? {
+              position: "fixed",
+              marginBottom: 10,
+              width: "calc(100% - 1.5rem)",
+            }
+          : {}
+      }
+    >
       <span>
-        View source at{" "}
-        <Link href={"#"}>github.com/suyogwaghere/cyber-secure-hub</Link>
+        🌟 Your all-in-one tool for website intelligence and security
+        exploration.
       </span>
-      <span>
-        <Link href="/about">Cyber-Secure-Hub</Link> is licensed under{" "}
-        <Link href={"#"}>MIT</Link> - © <Link href={"#"}>Suyog Waghere</Link>{" "}
-        2023
-      </span>
+      {/* <span>Don't forget to log out when you're done exploring!</span> */}
     </StyledFooter>
   );
 };

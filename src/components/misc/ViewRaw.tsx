@@ -25,6 +25,7 @@ small {
   margin-top: 0.5rem;
   font-size: 0.8rem;
   opacity: 0.5;
+  color: ${colors.textColor};
 }
 `;
 
@@ -42,6 +43,7 @@ const StyledIframe = styled.iframe`
 const ViewRaw = (props: { everything: { id: string; result: any }[] }) => {
   const [resultUrl, setResultUrl] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [results, setResults] = useState<string>();
 
   const makeResults = () => {
     const result: { [key: string]: any } = {};
@@ -82,6 +84,13 @@ const ViewRaw = (props: { everything: { id: string; result: any }[] }) => {
     link.click();
     URL.revokeObjectURL(url);
   };
+
+  const handleViewResults = () => {
+    if (resultUrl) {
+      setResults(resultUrl);
+      setResultUrl(null);
+    }
+  };
   return (
     <Card heading="View / Download Raw Data" styles={CardStyles}>
       <div className="controls">
@@ -89,17 +98,21 @@ const ViewRaw = (props: { everything: { id: string; result: any }[] }) => {
         <Button onClick={fetchResultsUrl}>
           {resultUrl ? "Update Results" : "View Results"}
         </Button>
-        {resultUrl && (
-          <Button onClick={() => setResultUrl("")}>Hide Results</Button>
-        )}
+        {resultUrl && <Button onClick={handleViewResults}>Hide Results</Button>}
       </div>
-      {resultUrl && !error && (
+      {(resultUrl || results) && !error ? (
         <>
-          <StyledIframe title="Results, via JSON Hero" src={resultUrl} />
+          <StyledIframe
+            title="Results, via JSON Hero"
+            src={resultUrl || results}
+          />
           <small>
-            Your results are available to view <a href={resultUrl}>here</a>.
+            Your results are available to view{" "}
+            <a href={resultUrl || results}>here</a>.
           </small>
         </>
+      ) : (
+        <p>No results available.</p>
       )}
       {error && <p className="error">{error}</p>}
       <small>

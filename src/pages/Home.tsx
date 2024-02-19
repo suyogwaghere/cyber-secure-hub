@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import { NavigateOptions, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import Button from "components/Form/Button";
@@ -7,13 +7,17 @@ import { StyledCard } from "components/Form/Card";
 import Heading from "components/Form/Heading";
 import Input from "components/Form/Input";
 
+import Navbar from "components/Navbar";
+import Footer from "components/misc/Footer";
+import { useRouter } from "routes/hook";
+import { paths } from "routes/paths";
 import colors from "styles/colors";
 import { determineAddressType } from "utils/address-type-checker";
 import docs from "utils/docs";
 
 const HomeContainer = styled.section`
   display: flex;
-  margin-top: 6rem;
+  margin-top: 1rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -29,6 +33,7 @@ const UserInputMain = styled.form`
   background: ${colors.backgroundLighter};
   box-shadow: 4px 4px 0px ${colors.bgShadowColor};
   border-radius: 8px;
+  margin-top: 5rem !important;
   padding: 1rem;
   z-index: 5;
   margin: 1rem;
@@ -77,6 +82,7 @@ const SiteFeaturesWrapper = styled(StyledCard)`
     list-style: none;
     padding: 0 1rem;
     font-size: 0.9rem;
+    color: ${colors.textColor};
     li {
       margin: 0.1rem 0;
       text-indent: -1.2rem;
@@ -88,7 +94,7 @@ const SiteFeaturesWrapper = styled(StyledCard)`
       margin-right: 0.5rem;
     }
   }
-  a {
+  .moreButton {
     color: ${colors.primary};
   }
 `;
@@ -100,6 +106,7 @@ const Home = (): JSX.Element => {
   const [placeholder] = useState(defaultPlaceholder);
   const [inputDisabled] = useState(false);
   const navigate = useNavigate();
+  const router = useRouter();
 
   /* Check is valid address, either show err or redirect to results page */
   const submit = () => {
@@ -115,10 +122,13 @@ const Home = (): JSX.Element => {
       if (addressType === "url" && !/^https?:\/\//i.test(address)) {
         address = "https://" + address;
       }
-      const resultRouteParams: NavigateOptions = {
-        state: { address, addressType },
-      };
-      navigate(`/results/${encodeURIComponent(address)}`, resultRouteParams);
+      // const resultRouteParams: NavigateOptions = {
+      //   state: { address, addressType },
+      // };
+
+      router.push(paths.results(encodeURIComponent(address)));
+
+      // navigate(`/results/${encodeURIComponent(address)}`, resultRouteParams);
     }
   };
 
@@ -156,6 +166,7 @@ const Home = (): JSX.Element => {
   return (
     <HomeContainer>
       {/* <FancyBackground /> */}
+      <Navbar />
       <UserInputMain onSubmit={formSubmitEvent}>
         <Heading as="h1" size="xLarge" align="center" color={colors.primary}>
           <img
@@ -194,12 +205,24 @@ const Home = (): JSX.Element => {
             {docs.slice(0, 5).map((doc, index) => (
               <li key={index}>{doc.title}</li>
             ))}
-            <li>
-              <a href="/about">+ more!</a>
+            <li
+              onClick={() => {
+                router.push(paths.about);
+              }}
+            >
+              <span
+                className="moreButton"
+                style={{
+                  cursor: "pointer",
+                }}
+              >
+                + more!
+              </span>
             </li>
           </ul>
         </div>
       </SiteFeaturesWrapper>
+      <Footer isFixed />
     </HomeContainer>
   );
 };
