@@ -7,7 +7,7 @@ require("dotenv").config();
 
 const app = express();
 
-const port = process.env.PORT || 3005; // The port to run the server on
+const port = process.env.PORT || 3000; // The port to run the server on
 const API_DIR = "/api"; // Name of the dir containing the lambda functions
 const dirPath = path.join(__dirname, API_DIR); // Path to the lambda functions dir
 const guiPath = path.join(__dirname, "build");
