@@ -1,11 +1,9 @@
-import { useAuthContext } from "auth/hooks";
-import styled from "styled-components";
-import colors from "styles/colors";
+import styled from 'styled-components';
+import colors from 'styles/colors';
 
 const StyledFooter = styled.footer`
   bottom: 0;
   z-index: 99;
-  // margin-bottom: 1rem;
   text-align: center;
   padding: 0.5rem 0;
   border-radius: 8px;
@@ -18,8 +16,9 @@ const StyledFooter = styled.footer`
   flex-wrap: wrap;
   opacity: 0.75;
   transition: all 0.2s ease-in-out;
-  @media (min-width: 1024px) {
-    justify-content: space-between;
+  justify-content: center;
+  @media (min-width: 1824px) {
+    justify-content: center;
   }
   &:hover {
     opacity: 1;
@@ -30,30 +29,28 @@ const StyledFooter = styled.footer`
   }
 `;
 
-const Link = styled.a`
-  color: ${colors.primary};
-  font-weight: bold;
-  border-radius: 4px;
-  padding: 0.1rem;
-  transition: all 0.2s ease-in-out;
-  &:hover {
-    background: ${colors.primary};
-    color: ${colors.backgroundDarker};
-    text-decoration: none;
-  }
-`;
+// const Link = styled.a`
+//   color: ${colors.primary};
+//   font-weight: bold;
+//   border-radius: 4px;
+//   padding: 0.1rem;
+//   transition: all 0.2s ease-in-out;
+//   &:hover {
+//     background: ${colors.primary};
+//     color: ${colors.backgroundDarker};
+//     text-decoration: none;
+//   }
+// `;
 
 const Footer = (props: { isFixed?: boolean }): JSX.Element => {
-  const { user } = useAuthContext();
-  console.log("🚀 ~ user:", user);
   return (
     <StyledFooter
       style={
         props.isFixed
           ? {
-              position: "fixed",
+              position: 'fixed',
               marginBottom: 10,
-              width: "calc(100% - 1.5rem)",
+              // width: 'calc(100% - 1.5rem)',
             }
           : {}
       }

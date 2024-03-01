@@ -1,25 +1,25 @@
 // utils
-import { paramCase } from "./../utils/change-case";
+import { paramCase } from './../utils/change-case';
 
 // ----------------------------------------------------------------------
 
 const ROOTS = {
-  AUTH: "/auth",
-  AUTH_DEMO: "/auth-demo",
-  DASHBOARD: "/dashboard",
+  AUTH: '/auth',
+  AUTH_DEMO: '/auth-demo',
+  DASHBOARD: '/dashboard',
 };
 
 // ----------------------------------------------------------------------
 
 export const paths = {
-  comingSoon: "/coming-soon",
-  maintenance: "/maintenance",
+  comingSoon: '/coming-soon',
+  maintenance: '/maintenance',
 
-  about: "/about",
+  about: '/about',
   results: (address: string) => `/results/${address}`,
-  home: "/home",
+  home: '/home',
 
-  page404: "/404",
+  page404: '/404',
 
   product: {
     root: `/product`,
@@ -35,6 +35,12 @@ export const paths = {
     jwt: {
       login: `${ROOTS.AUTH}/jwt/login`,
       register: `${ROOTS.AUTH}/jwt/register`,
+    },
+    firebase: {
+      login: `${ROOTS.AUTH}/firebase/login`,
+      verify: `${ROOTS.AUTH}/firebase/verify`,
+      register: `${ROOTS.AUTH}/firebase/register`,
+      forgotPassword: `${ROOTS.AUTH}/firebase/forgot-password`,
     },
   },
   authDemo: {

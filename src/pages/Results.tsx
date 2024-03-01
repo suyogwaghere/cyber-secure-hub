@@ -1,71 +1,70 @@
-import { ReactNode, useCallback, useEffect, useState } from "react";
-import Masonry from "react-masonry-css";
-import { useParams } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import styled from "styled-components";
+import { ReactNode, useCallback, useEffect, useState } from 'react';
+import Masonry from 'react-masonry-css';
+import { useParams } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import styled from 'styled-components';
 
-import Heading from "components/Form/Heading";
-import Modal from "components/Form/Modal";
-import Nav from "components/Form/Nav";
-import { RowProps } from "components/Form/Row";
-import colors from "styles/colors";
+import Heading from 'components/Form/Heading';
+import Modal from 'components/Form/Modal';
+import Nav from 'components/Form/Nav';
+import { RowProps } from 'components/Form/Row';
+import colors from 'styles/colors';
 
-import ActionButtons from "components/misc/ActionButtons";
-import AdditionalResources from "components/misc/AdditionalResources";
-import DocContent from "components/misc/DocContent";
-import ErrorBoundary from "components/misc/ErrorBoundary";
-import Loader from "components/misc/Loader";
+import ActionButtons from 'components/misc/ActionButtons';
+import AdditionalResources from 'components/misc/AdditionalResources';
+import DocContent from 'components/misc/DocContent';
+import ErrorBoundary from 'components/misc/ErrorBoundary';
+import Loader from 'components/misc/Loader';
 import ProgressBar, {
   LoadingJob,
   LoadingState,
   initialJobs,
-} from "components/misc/ProgressBar";
-import SelfScanMsg from "components/misc/SelfScanMsg";
-import ViewRaw from "components/misc/ViewRaw";
+} from 'components/misc/ProgressBar';
+import SelfScanMsg from 'components/misc/SelfScanMsg';
 
-import ArchivesCard from "components/Results/Archives";
-import BlockListsCard from "components/Results/BlockLists";
-import CarbonFootprintCard from "components/Results/CarbonFootprint";
-import ContentLinksCard from "components/Results/ContentLinks";
-import CookiesCard from "components/Results/Cookies";
-import DnsRecordsCard from "components/Results/DnsRecords";
-import DnsSecCard from "components/Results/DnsSec";
-import DnsServerCard from "components/Results/DnsServer";
-import DomainLookup from "components/Results/DomainLookup";
-import FirewallCard from "components/Results/Firewall";
-import HeadersCard from "components/Results/Headers";
-import HostNamesCard from "components/Results/HostNames";
-import HstsCard from "components/Results/Hsts";
-import HttpSecurityCard from "components/Results/HttpSecurity";
-import LighthouseCard from "components/Results/Lighthouse";
-import MailConfigCard from "components/Results/MailConfig";
-import OpenPortsCard from "components/Results/OpenPorts";
-import RankCard from "components/Results/Rank";
-import RedirectsCard from "components/Results/Redirects";
-import RobotsTxtCard from "components/Results/RobotsTxt";
-import ScreenshotCard from "components/Results/Screenshot";
-import SecurityTxtCard from "components/Results/SecurityTxt";
-import ServerInfoCard from "components/Results/ServerInfo";
-import ServerLocationCard from "components/Results/ServerLocation";
-import ServerStatusCard from "components/Results/ServerStatus";
-import SiteFeaturesCard from "components/Results/SiteFeatures";
-import SitemapCard from "components/Results/Sitemap";
-import SocialTagsCard from "components/Results/SocialTags";
-import SslCertCard from "components/Results/SslCert";
-import TechStackCard from "components/Results/TechStack";
-import ThreatsCard from "components/Results/Threats";
-import TlsCipherSuitesCard from "components/Results/TlsCipherSuites";
-import TlsClientSupportCard from "components/Results/TlsClientSupport";
-import TlsIssueAnalysisCard from "components/Results/TlsIssueAnalysis";
-import TraceRouteCard from "components/Results/TraceRoute";
-import TxtRecordCard from "components/Results/TxtRecords";
-import WhoIsCard from "components/Results/WhoIs";
+import ArchivesCard from 'components/Results/Archives';
+import BlockListsCard from 'components/Results/BlockLists';
+import CarbonFootprintCard from 'components/Results/CarbonFootprint';
+import ContentLinksCard from 'components/Results/ContentLinks';
+import CookiesCard from 'components/Results/Cookies';
+import DnsRecordsCard from 'components/Results/DnsRecords';
+import DnsSecCard from 'components/Results/DnsSec';
+import DnsServerCard from 'components/Results/DnsServer';
+import DomainLookup from 'components/Results/DomainLookup';
+import FirewallCard from 'components/Results/Firewall';
+import HeadersCard from 'components/Results/Headers';
+import HostNamesCard from 'components/Results/HostNames';
+import HstsCard from 'components/Results/Hsts';
+import HttpSecurityCard from 'components/Results/HttpSecurity';
+import LighthouseCard from 'components/Results/Lighthouse';
+import MailConfigCard from 'components/Results/MailConfig';
+import OpenPortsCard from 'components/Results/OpenPorts';
+import RankCard from 'components/Results/Rank';
+import RedirectsCard from 'components/Results/Redirects';
+import RobotsTxtCard from 'components/Results/RobotsTxt';
+import ScreenshotCard from 'components/Results/Screenshot';
+import SecurityTxtCard from 'components/Results/SecurityTxt';
+import ServerInfoCard from 'components/Results/ServerInfo';
+import ServerLocationCard from 'components/Results/ServerLocation';
+import ServerStatusCard from 'components/Results/ServerStatus';
+import SiteFeaturesCard from 'components/Results/SiteFeatures';
+import SitemapCard from 'components/Results/Sitemap';
+import SocialTagsCard from 'components/Results/SocialTags';
+import SslCertCard from 'components/Results/SslCert';
+import TechStackCard from 'components/Results/TechStack';
+import ThreatsCard from 'components/Results/Threats';
+import TlsCipherSuitesCard from 'components/Results/TlsCipherSuites';
+import TlsClientSupportCard from 'components/Results/TlsClientSupport';
+import TlsIssueAnalysisCard from 'components/Results/TlsIssueAnalysis';
+import TraceRouteCard from 'components/Results/TraceRoute';
+import TxtRecordCard from 'components/Results/TxtRecords';
+import WhoIsCard from 'components/Results/WhoIs';
 
-import Navbar from "components/Navbar";
-import Footer from "components/misc/Footer";
-import useMotherHook from "hooks/motherOfAllHooks";
-import { AddressType, determineAddressType } from "utils/address-type-checker";
-import keys from "utils/get-keys";
+import Navbar from 'components/Navbar';
+import Footer from 'components/misc/Footer';
+import useMotherHook from 'hooks/motherOfAllHooks';
+import { AddressType, determineAddressType } from 'utils/address-type-checker';
+import keys from 'utils/get-keys';
 import {
   Cookie,
   ServerLocation,
@@ -74,7 +73,7 @@ import {
   applyWhoIsResults,
   getLocation,
   parseShodanResults,
-} from "utils/result-processor";
+} from 'utils/result-processor';
 
 const ResultsOuter = styled.div`
   display: flex;
@@ -119,7 +118,7 @@ const FilterButtons = styled.div`
     color: ${colors.textColor};
     border: none;
     border-radius: 4px;
-    font-family: "PTMono";
+    font-family: 'PTMono';
     padding: 0.25rem 0.5rem;
     border: 1px solid transparent;
     transition: all 0.2s ease-in-out;
@@ -167,19 +166,19 @@ const FilterButtons = styled.div`
 const Results = (): JSX.Element => {
   const startTime = new Date().getTime();
 
-  const [addressType, setAddressType] = useState<AddressType>("empt");
+  const [addressType, setAddressType] = useState<AddressType>('empt');
   const { address } = useParams();
 
   const [loadingJobs, setLoadingJobs] = useState<LoadingJob[]>(initialJobs);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState<ReactNode>(<></>);
   const [showFilters, setShowFilters] = useState(false);
-  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [searchTerm, setSearchTerm] = useState<string>('');
   const [tags, setTags] = useState<string[]>([]);
 
   const clearFilters = () => {
     setTags([]);
-    setSearchTerm("");
+    setSearchTerm('');
   };
   const updateTags = (tag: string) => {
     // Remove current tag if it exists, otherwise add it
@@ -195,7 +194,7 @@ const Results = (): JSX.Element => {
       retry?: () => void,
       data?: any
     ) => {
-      (typeof jobs === "string" ? [jobs] : jobs).forEach((job: string) => {
+      (typeof jobs === 'string' ? [jobs] : jobs).forEach((job: string) => {
         const now = new Date();
         const timeTaken = now.getTime() - startTime;
         setLoadingJobs((prevJobs) => {
@@ -213,11 +212,11 @@ const Results = (): JSX.Element => {
           });
 
           const timeString =
-            `[${now.getHours().toString().padStart(2, "0")}:` +
-            `${now.getMinutes().toString().padStart(2, "0")}:` +
-            `${now.getSeconds().toString().padStart(2, "0")}]`;
+            `[${now.getHours().toString().padStart(2, '0')}:` +
+            `${now.getMinutes().toString().padStart(2, '0')}:` +
+            `${now.getSeconds().toString().padStart(2, '0')}]`;
 
-          if (newState === "success") {
+          if (newState === 'success') {
             console.log(
               `%cFetch Success - ${job}%c\n\n${timeString}%c The ${job} job succeeded in ${timeTaken}ms` +
                 `\n%cRun %cwindow.webCheck['${job}']%c to inspect the raw the results`,
@@ -232,7 +231,7 @@ const Results = (): JSX.Element => {
             if (data) (window as any).webCheck[job] = data;
           }
 
-          if (newState === "error") {
+          if (newState === 'error') {
             console.log(
               `%cFetch Error - ${job}%c\n\n${timeString}%c The ${job} job failed ` +
                 `after ${timeTaken}ms, with the following error:%c\n${error}`,
@@ -266,13 +265,13 @@ const Results = (): JSX.Element => {
     });
   };
 
-  const urlTypeOnly = ["url"] as AddressType[]; // Many jobs only run with these address types
+  const urlTypeOnly = ['url'] as AddressType[]; // Many jobs only run with these address types
 
-  const api = process.env.REACT_APP_HOST_APIA || "/api"; // Where is the API hosted?
+  const api = process.env.REACT_APP_HOST_APIA || '/api'; // Where is the API hosted?
 
   // Fetch and parse IP address for given URL
   const [ipAddress, setIpAddress] = useMotherHook({
-    jobId: "get-ip",
+    jobId: 'get-ip',
     updateLoadingJobs,
     addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
     fetchRequest: () =>
@@ -282,10 +281,10 @@ const Results = (): JSX.Element => {
   });
 
   useEffect(() => {
-    if (!addressType || addressType === "empt") {
-      setAddressType(determineAddressType(address || ""));
+    if (!addressType || addressType === 'empt') {
+      setAddressType(determineAddressType(address || ''));
     }
-    if (addressType === "ipV4" && address) {
+    if (addressType === 'ipV4' && address) {
       setIpAddress(address);
     }
   }, [address, addressType, setIpAddress]);
@@ -293,12 +292,12 @@ const Results = (): JSX.Element => {
   // Get IP address location info
   const [locationResults, updateLocationResults] =
     useMotherHook<ServerLocation>({
-      jobId: "location",
+      jobId: 'location',
       updateLoadingJobs,
       addressInfo: {
         address: ipAddress,
-        addressType: "ipV4",
-        expectedAddressTypes: ["ipV4", "ipV6"],
+        addressType: 'ipV4',
+        expectedAddressTypes: ['ipV4', 'ipV6'],
       },
       fetchRequest: () =>
         fetch(`https://ipapi.co/${ipAddress}/json/`)
@@ -308,7 +307,7 @@ const Results = (): JSX.Element => {
 
   // Fetch and parse SSL certificate info
   const [sslResults, updateSslResults] = useMotherHook({
-    jobId: "ssl",
+    jobId: 'ssl',
     updateLoadingJobs,
     addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
     fetchRequest: () =>
@@ -317,7 +316,7 @@ const Results = (): JSX.Element => {
 
   // Run a manual whois lookup on the domain
   const [domainLookupResults, updateDomainLookupResults] = useMotherHook({
-    jobId: "domain",
+    jobId: 'domain',
     updateLoadingJobs,
     addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
     fetchRequest: () =>
@@ -326,18 +325,18 @@ const Results = (): JSX.Element => {
 
   // Fetch and parse Lighthouse performance data
   const [lighthouseResults, updateLighthouseResults] = useMotherHook({
-    jobId: "quality",
+    jobId: 'quality',
     updateLoadingJobs,
     addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
     fetchRequest: () =>
       fetch(`${api}/quality?url=${address}`)
         .then((res) => parseJson(res))
-        .then((res) => res?.lighthouseResult || { error: "No Data" }),
+        .then((res) => res?.lighthouseResult || { error: 'No Data' }),
   });
 
   // Get the technologies used to build site, using Wappalyzer
   const [techStackResults, updateTechStackResults] = useMotherHook({
-    jobId: "tech-stack",
+    jobId: 'tech-stack',
     updateLoadingJobs,
     addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
     fetchRequest: () =>
@@ -346,12 +345,12 @@ const Results = (): JSX.Element => {
 
   // Get hostnames and associated domains from Shodan
   const [shoadnResults, updateShodanResults] = useMotherHook<ShodanResults>({
-    jobId: ["hosts", "server-info"],
+    jobId: ['hosts', 'server-info'],
     updateLoadingJobs,
     addressInfo: {
       address: ipAddress,
-      addressType: "ipV4",
-      expectedAddressTypes: ["ipV4", "ipV6"],
+      addressType: 'ipV4',
+      expectedAddressTypes: ['ipV4', 'ipV6'],
     },
     fetchRequest: () =>
       fetch(`https://api.shodan.io/shodan/host/${ipAddress}?key=${keys.shodan}`)
@@ -363,7 +362,7 @@ const Results = (): JSX.Element => {
   const [cookieResults, updateCookieResults] = useMotherHook<{
     cookies: Cookie[];
   }>({
-    jobId: "cookies",
+    jobId: 'cookies',
     updateLoadingJobs,
     addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
     fetchRequest: () =>
@@ -372,7 +371,7 @@ const Results = (): JSX.Element => {
 
   // Fetch and parse headers
   const [headersResults, updateHeadersResults] = useMotherHook({
-    jobId: "headers",
+    jobId: 'headers',
     updateLoadingJobs,
     addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
     fetchRequest: () =>
@@ -381,7 +380,7 @@ const Results = (): JSX.Element => {
 
   // Fetch and parse DNS records
   const [dnsResults, updateDnsResults] = useMotherHook({
-    jobId: "dns",
+    jobId: 'dns',
     updateLoadingJobs,
     addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
     fetchRequest: () =>
@@ -390,7 +389,7 @@ const Results = (): JSX.Element => {
 
   // Get HTTP security
   const [httpSecurityResults, updateHttpSecurityResults] = useMotherHook({
-    jobId: "http-security",
+    jobId: 'http-security',
     updateLoadingJobs,
     addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
     fetchRequest: () =>
@@ -401,7 +400,7 @@ const Results = (): JSX.Element => {
 
   // Get social media previews, from a sites social meta tags
   const [socialTagResults, updateSocialTagResults] = useMotherHook({
-    jobId: "social-tags",
+    jobId: 'social-tags',
     updateLoadingJobs,
     addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
     fetchRequest: () =>
@@ -410,7 +409,7 @@ const Results = (): JSX.Element => {
 
   // Get trace route for a given hostname
   const [traceRouteResults, updateTraceRouteResults] = useMotherHook({
-    jobId: "trace-route",
+    jobId: 'trace-route',
     updateLoadingJobs,
     addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
     fetchRequest: () =>
@@ -419,7 +418,7 @@ const Results = (): JSX.Element => {
 
   // Get a websites listed pages, from sitemap
   const [securityTxtResults, updateSecurityTxtResults] = useMotherHook({
-    jobId: "security-txt",
+    jobId: 'security-txt',
     updateLoadingJobs,
     addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
     fetchRequest: () =>
@@ -428,7 +427,7 @@ const Results = (): JSX.Element => {
 
   // Get the DNS server(s) for a domain, and test DoH/DoT support
   const [dnsServerResults, updateDnsServerResults] = useMotherHook({
-    jobId: "dns-server",
+    jobId: 'dns-server',
     updateLoadingJobs,
     addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
     fetchRequest: () =>
@@ -437,7 +436,7 @@ const Results = (): JSX.Element => {
 
   // Get the WAF and Firewall info for a site
   const [firewallResults, updateFirewallResults] = useMotherHook({
-    jobId: "firewall",
+    jobId: 'firewall',
     updateLoadingJobs,
     addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
     fetchRequest: () =>
@@ -446,7 +445,7 @@ const Results = (): JSX.Element => {
 
   // Get DNSSEC info
   const [dnsSecResults, updateDnsSecResults] = useMotherHook({
-    jobId: "dnssec",
+    jobId: 'dnssec',
     updateLoadingJobs,
     addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
     fetchRequest: () =>
@@ -455,7 +454,7 @@ const Results = (): JSX.Element => {
 
   // Check if a site is on the HSTS preload list
   const [hstsResults, updateHstsResults] = useMotherHook({
-    jobId: "hsts",
+    jobId: 'hsts',
     updateLoadingJobs,
     addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
     fetchRequest: () =>
@@ -464,7 +463,7 @@ const Results = (): JSX.Element => {
 
   // Check if a host is present on the URLHaus malware list
   const [threatResults, updateThreatResults] = useMotherHook({
-    jobId: "threats",
+    jobId: 'threats',
     updateLoadingJobs,
     addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
     fetchRequest: () =>
@@ -473,7 +472,7 @@ const Results = (): JSX.Element => {
 
   // Get mail config for server, based on DNS records
   const [mailConfigResults, updateMailConfigResults] = useMotherHook({
-    jobId: "mail-config",
+    jobId: 'mail-config',
     updateLoadingJobs,
     addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
     fetchRequest: () =>
@@ -482,7 +481,7 @@ const Results = (): JSX.Element => {
 
   // Get list of archives from the Wayback Machine
   const [archivesResults, updateArchivesResults] = useMotherHook({
-    jobId: "archives",
+    jobId: 'archives',
     updateLoadingJobs,
     addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
     fetchRequest: () =>
@@ -491,7 +490,7 @@ const Results = (): JSX.Element => {
 
   // Get website's global ranking, from Tranco
   const [rankResults, updateRankResults] = useMotherHook({
-    jobId: "rank",
+    jobId: 'rank',
     updateLoadingJobs,
     addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
     fetchRequest: () =>
@@ -500,7 +499,7 @@ const Results = (): JSX.Element => {
 
   // Take a screenshot of the website
   const [screenshotResult, updateScreenshotResult] = useMotherHook({
-    jobId: "screenshot",
+    jobId: 'screenshot',
     updateLoadingJobs,
     addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
     fetchRequest: () =>
@@ -509,7 +508,7 @@ const Results = (): JSX.Element => {
 
   // Get TLS security info, from Mozilla Observatory
   const [tlsResults, updateTlsResults] = useMotherHook({
-    jobId: ["tls-cipher-suites", "tls-security-config", "tls-client-support"],
+    jobId: ['tls-cipher-suites', 'tls-security-config', 'tls-client-support'],
     updateLoadingJobs,
     addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
     fetchRequest: () =>
@@ -518,7 +517,7 @@ const Results = (): JSX.Element => {
 
   // Fetches URL redirects
   const [redirectResults, updateRedirectResults] = useMotherHook({
-    jobId: "redirects",
+    jobId: 'redirects',
     updateLoadingJobs,
     addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
     fetchRequest: () =>
@@ -527,7 +526,7 @@ const Results = (): JSX.Element => {
 
   // Get list of links included in the page content
   const [linkedPagesResults, updateLinkedPagesResults] = useMotherHook({
-    jobId: "linked-pages",
+    jobId: 'linked-pages',
     updateLoadingJobs,
     addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
     fetchRequest: () =>
@@ -538,7 +537,7 @@ const Results = (): JSX.Element => {
   const [robotsTxtResults, updateRobotsTxtResults] = useMotherHook<{
     robots: RowProps[];
   }>({
-    jobId: "robots-txt",
+    jobId: 'robots-txt',
     updateLoadingJobs,
     addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
     fetchRequest: () =>
@@ -547,7 +546,7 @@ const Results = (): JSX.Element => {
 
   // Get current status and response time of server
   const [serverStatusResults, updateServerStatusResults] = useMotherHook({
-    jobId: "status",
+    jobId: 'status',
     updateLoadingJobs,
     addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
     fetchRequest: () =>
@@ -556,12 +555,12 @@ const Results = (): JSX.Element => {
 
   // Check for open ports
   const [portsResults, updatePortsResults] = useMotherHook({
-    jobId: "ports",
+    jobId: 'ports',
     updateLoadingJobs,
     addressInfo: {
       address: ipAddress,
-      addressType: "ipV4",
-      expectedAddressTypes: ["ipV4", "ipV6"],
+      addressType: 'ipV4',
+      expectedAddressTypes: ['ipV4', 'ipV6'],
     },
     fetchRequest: () =>
       fetch(`${api}/ports?url=${ipAddress}`).then((res) => parseJson(res)),
@@ -571,7 +570,7 @@ const Results = (): JSX.Element => {
   const [whoIsResults, updateWhoIsResults] = useMotherHook<
     Whois | { error: string }
   >({
-    jobId: "whois",
+    jobId: 'whois',
     updateLoadingJobs,
     addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
     fetchRequest: () =>
@@ -584,7 +583,7 @@ const Results = (): JSX.Element => {
 
   // Fetches DNS TXT records
   const [txtRecordResults, updateTxtRecordResults] = useMotherHook({
-    jobId: "txt-records",
+    jobId: 'txt-records',
     updateLoadingJobs,
     addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
     fetchRequest: () =>
@@ -593,7 +592,7 @@ const Results = (): JSX.Element => {
 
   // Check site against DNS blocklists
   const [blockListsResults, updateBlockListsResults] = useMotherHook({
-    jobId: "block-lists",
+    jobId: 'block-lists',
     updateLoadingJobs,
     addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
     fetchRequest: () =>
@@ -602,7 +601,7 @@ const Results = (): JSX.Element => {
 
   // Get a websites listed pages, from sitemap
   const [sitemapResults, updateSitemapResults] = useMotherHook({
-    jobId: "sitemap",
+    jobId: 'sitemap',
     updateLoadingJobs,
     addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
     fetchRequest: () =>
@@ -611,7 +610,7 @@ const Results = (): JSX.Element => {
 
   // Fetch carbon footprint data for a given site
   const [carbonResults, updateCarbonResults] = useMotherHook({
-    jobId: "carbon",
+    jobId: 'carbon',
     updateLoadingJobs,
     addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
     fetchRequest: () =>
@@ -620,7 +619,7 @@ const Results = (): JSX.Element => {
 
   // Get site features from BuiltWith
   const [siteFeaturesResults, updateSiteFeaturesResults] = useMotherHook({
-    jobId: "features",
+    jobId: 'features',
     updateLoadingJobs,
     addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
     fetchRequest: () =>
@@ -630,7 +629,7 @@ const Results = (): JSX.Element => {
           if (res.Errors && res.Errors.length > 0) {
             return {
               error: `No data returned, because ${
-                res.Errors[0].Message || "API lookup failed"
+                res.Errors[0].Message || 'API lookup failed'
               }`,
             };
           }
@@ -642,8 +641,8 @@ const Results = (): JSX.Element => {
   useEffect(() => {
     const checkJobs = () => {
       loadingJobs.forEach((job) => {
-        if (job.state === "loading") {
-          updateLoadingJobs(job.name, "timed-out");
+        if (job.state === 'loading') {
+          updateLoadingJobs(job.name, 'timed-out');
         }
       });
     };
@@ -655,7 +654,7 @@ const Results = (): JSX.Element => {
 
   const makeSiteName = (address: string): string => {
     try {
-      return new URL(address).hostname.replace("www.", "");
+      return new URL(address).hostname.replace('www.', '');
     } catch (error) {
       return address;
     }
@@ -664,301 +663,301 @@ const Results = (): JSX.Element => {
   // A list of state sata, corresponding component and title for each card
   const resultCardData = [
     {
-      id: "location",
-      title: "Server Location",
+      id: 'location',
+      title: 'Server Location',
       result: locationResults,
       Component: ServerLocationCard,
       refresh: updateLocationResults,
-      tags: ["server"],
+      tags: ['server'],
     },
     {
-      id: "ssl",
-      title: "SSL Certificate",
+      id: 'ssl',
+      title: 'SSL Certificate',
       result: sslResults,
       Component: SslCertCard,
       refresh: updateSslResults,
-      tags: ["server", "security"],
+      tags: ['server', 'security'],
     },
     {
-      id: "domain",
-      title: "Domain Whois",
+      id: 'domain',
+      title: 'Domain Whois',
       result: domainLookupResults,
       Component: DomainLookup,
       refresh: updateDomainLookupResults,
-      tags: ["server"],
+      tags: ['server'],
     },
     {
-      id: "quality",
-      title: "Quality Summary",
+      id: 'quality',
+      title: 'Quality Summary',
       result: lighthouseResults,
       Component: LighthouseCard,
       refresh: updateLighthouseResults,
-      tags: ["client"],
+      tags: ['client'],
     },
     {
-      id: "tech-stack",
-      title: "Tech Stack",
+      id: 'tech-stack',
+      title: 'Tech Stack',
       result: techStackResults,
       Component: TechStackCard,
       refresh: updateTechStackResults,
-      tags: ["client", "meta"],
+      tags: ['client', 'meta'],
     },
     {
-      id: "server-info",
-      title: "Server Info",
+      id: 'server-info',
+      title: 'Server Info',
       result: shoadnResults?.serverInfo,
       Component: ServerInfoCard,
       refresh: updateShodanResults,
-      tags: ["server"],
+      tags: ['server'],
     },
     {
-      id: "cookies",
-      title: "Cookies",
+      id: 'cookies',
+      title: 'Cookies',
       result: cookieResults,
       Component: CookiesCard,
       refresh: updateCookieResults,
-      tags: ["client", "security"],
+      tags: ['client', 'security'],
     },
     {
-      id: "headers",
-      title: "Headers",
+      id: 'headers',
+      title: 'Headers',
       result: headersResults,
       Component: HeadersCard,
       refresh: updateHeadersResults,
-      tags: ["client", "security"],
+      tags: ['client', 'security'],
     },
     {
-      id: "dns",
-      title: "DNS Records",
+      id: 'dns',
+      title: 'DNS Records',
       result: dnsResults,
       Component: DnsRecordsCard,
       refresh: updateDnsResults,
-      tags: ["server"],
+      tags: ['server'],
     },
     {
-      id: "hosts",
-      title: "Host Names",
+      id: 'hosts',
+      title: 'Host Names',
       result: shoadnResults?.hostnames,
       Component: HostNamesCard,
       refresh: updateShodanResults,
-      tags: ["server"],
+      tags: ['server'],
     },
     {
-      id: "http-security",
-      title: "HTTP Security",
+      id: 'http-security',
+      title: 'HTTP Security',
       result: httpSecurityResults,
       Component: HttpSecurityCard,
       refresh: updateHttpSecurityResults,
-      tags: ["security"],
+      tags: ['security'],
     },
     {
-      id: "social-tags",
-      title: "Social Tags",
+      id: 'social-tags',
+      title: 'Social Tags',
       result: socialTagResults,
       Component: SocialTagsCard,
       refresh: updateSocialTagResults,
-      tags: ["client", "meta"],
+      tags: ['client', 'meta'],
     },
     {
-      id: "trace-route",
-      title: "Trace Route",
+      id: 'trace-route',
+      title: 'Trace Route',
       result: traceRouteResults,
       Component: TraceRouteCard,
       refresh: updateTraceRouteResults,
-      tags: ["server"],
+      tags: ['server'],
     },
     {
-      id: "security-txt",
-      title: "Security.Txt",
+      id: 'security-txt',
+      title: 'Security.Txt',
       result: securityTxtResults,
       Component: SecurityTxtCard,
       refresh: updateSecurityTxtResults,
-      tags: ["security"],
+      tags: ['security'],
     },
     {
-      id: "dns-server",
-      title: "DNS Server",
+      id: 'dns-server',
+      title: 'DNS Server',
       result: dnsServerResults,
       Component: DnsServerCard,
       refresh: updateDnsServerResults,
-      tags: ["server"],
+      tags: ['server'],
     },
     {
-      id: "firewall",
-      title: "Firewall",
+      id: 'firewall',
+      title: 'Firewall',
       result: firewallResults,
       Component: FirewallCard,
       refresh: updateFirewallResults,
-      tags: ["server", "security"],
+      tags: ['server', 'security'],
     },
     {
-      id: "dnssec",
-      title: "DNSSEC",
+      id: 'dnssec',
+      title: 'DNSSEC',
       result: dnsSecResults,
       Component: DnsSecCard,
       refresh: updateDnsSecResults,
-      tags: ["security"],
+      tags: ['security'],
     },
     {
-      id: "hsts",
-      title: "HSTS Check",
+      id: 'hsts',
+      title: 'HSTS Check',
       result: hstsResults,
       Component: HstsCard,
       refresh: updateHstsResults,
-      tags: ["security"],
+      tags: ['security'],
     },
     {
-      id: "threats",
-      title: "Threats",
+      id: 'threats',
+      title: 'Threats',
       result: threatResults,
       Component: ThreatsCard,
       refresh: updateThreatResults,
-      tags: ["security"],
+      tags: ['security'],
     },
     {
-      id: "mail-config",
-      title: "Email Configuration",
+      id: 'mail-config',
+      title: 'Email Configuration',
       result: mailConfigResults,
       Component: MailConfigCard,
       refresh: updateMailConfigResults,
-      tags: ["server"],
+      tags: ['server'],
     },
     {
-      id: "archives",
-      title: "Archive History",
+      id: 'archives',
+      title: 'Archive History',
       result: archivesResults,
       Component: ArchivesCard,
       refresh: updateArchivesResults,
-      tags: ["meta"],
+      tags: ['meta'],
     },
     {
-      id: "rank",
-      title: "Global Ranking",
+      id: 'rank',
+      title: 'Global Ranking',
       result: rankResults,
       Component: RankCard,
       refresh: updateRankResults,
-      tags: ["meta"],
+      tags: ['meta'],
     },
     {
-      id: "screenshot",
-      title: "Screenshot",
+      id: 'screenshot',
+      title: 'Screenshot',
       result:
         screenshotResult || lighthouseResults?.fullPageScreenshot?.screenshot,
       Component: ScreenshotCard,
       refresh: updateScreenshotResult,
-      tags: ["client", "meta"],
+      tags: ['client', 'meta'],
     },
     {
-      id: "tls-cipher-suites",
-      title: "TLS Cipher Suites",
+      id: 'tls-cipher-suites',
+      title: 'TLS Cipher Suites',
       result: tlsResults,
       Component: TlsCipherSuitesCard,
       refresh: updateTlsResults,
-      tags: ["server", "security"],
+      tags: ['server', 'security'],
     },
     {
-      id: "tls-security-config",
-      title: "TLS Security Issues",
+      id: 'tls-security-config',
+      title: 'TLS Security Issues',
       result: tlsResults,
       Component: TlsIssueAnalysisCard,
       refresh: updateTlsResults,
-      tags: ["security"],
+      tags: ['security'],
     },
     {
-      id: "tls-client-support",
-      title: "TLS Handshake Simulation",
+      id: 'tls-client-support',
+      title: 'TLS Handshake Simulation',
       result: tlsResults,
       Component: TlsClientSupportCard,
       refresh: updateTlsResults,
-      tags: ["security"],
+      tags: ['security'],
     },
     {
-      id: "redirects",
-      title: "Redirects",
+      id: 'redirects',
+      title: 'Redirects',
       result: redirectResults,
       Component: RedirectsCard,
       refresh: updateRedirectResults,
-      tags: ["meta"],
+      tags: ['meta'],
     },
     {
-      id: "linked-pages",
-      title: "Linked Pages",
+      id: 'linked-pages',
+      title: 'Linked Pages',
       result: linkedPagesResults,
       Component: ContentLinksCard,
       refresh: updateLinkedPagesResults,
-      tags: ["client", "meta"],
+      tags: ['client', 'meta'],
     },
     {
-      id: "robots-txt",
-      title: "Crawl Rules",
+      id: 'robots-txt',
+      title: 'Crawl Rules',
       result: robotsTxtResults,
       Component: RobotsTxtCard,
       refresh: updateRobotsTxtResults,
-      tags: ["meta"],
+      tags: ['meta'],
     },
     {
-      id: "status",
-      title: "Server Status",
+      id: 'status',
+      title: 'Server Status',
       result: serverStatusResults,
       Component: ServerStatusCard,
       refresh: updateServerStatusResults,
-      tags: ["server"],
+      tags: ['server'],
     },
     {
-      id: "ports",
-      title: "Open Ports",
+      id: 'ports',
+      title: 'Open Ports',
       result: portsResults,
       Component: OpenPortsCard,
       refresh: updatePortsResults,
-      tags: ["server"],
+      tags: ['server'],
     },
     {
-      id: "whois",
-      title: "Domain Info",
+      id: 'whois',
+      title: 'Domain Info',
       result: whoIsResults,
       Component: WhoIsCard,
       refresh: updateWhoIsResults,
-      tags: ["server"],
+      tags: ['server'],
     },
     {
-      id: "txt-records",
-      title: "TXT Records",
+      id: 'txt-records',
+      title: 'TXT Records',
       result: txtRecordResults,
       Component: TxtRecordCard,
       refresh: updateTxtRecordResults,
-      tags: ["server"],
+      tags: ['server'],
     },
     {
-      id: "block-lists",
-      title: "Block Lists",
+      id: 'block-lists',
+      title: 'Block Lists',
       result: blockListsResults,
       Component: BlockListsCard,
       refresh: updateBlockListsResults,
-      tags: ["security", "meta"],
+      tags: ['security', 'meta'],
     },
     {
-      id: "features",
-      title: "Site Features",
+      id: 'features',
+      title: 'Site Features',
       result: siteFeaturesResults,
       Component: SiteFeaturesCard,
       refresh: updateSiteFeaturesResults,
-      tags: ["meta"],
+      tags: ['meta'],
     },
     {
-      id: "sitemap",
-      title: "Pages",
+      id: 'sitemap',
+      title: 'Pages',
       result: sitemapResults,
       Component: SitemapCard,
       refresh: updateSitemapResults,
-      tags: ["meta"],
+      tags: ['meta'],
     },
     {
-      id: "carbon",
-      title: "Carbon Footprint",
+      id: 'carbon',
+      title: 'Carbon Footprint',
       result: carbonResults,
       Component: CarbonFootprintCard,
       refresh: updateCarbonResults,
-      tags: ["meta"],
+      tags: ['meta'],
     },
   ];
 
@@ -968,8 +967,8 @@ const Results = (): JSX.Element => {
     showInfo: (id: string) => void
   ): ReactNode => {
     const actions = [
-      { label: `Info about ${title}`, onClick: showInfo, icon: "ⓘ" },
-      { label: `Re-fetch ${title} data`, onClick: refresh, icon: "↻" },
+      { label: `Info about ${title}`, onClick: showInfo, icon: 'ⓘ' },
+      { label: `Re-fetch ${title} data`, onClick: refresh, icon: '↻' },
     ];
     return <ActionButtons actions={actions} />;
   };
@@ -989,13 +988,13 @@ const Results = (): JSX.Element => {
       <Navbar />
       <Nav>
         {address && (
-          <Heading color={colors.textColor} size="medium">
-            {addressType === "url" && (
+          <Heading color={colors.textColor} size='medium'>
+            {addressType === 'url' && (
               <a href={address}>
                 <img
-                  width="32px"
+                  width='32px'
                   src={`https://icon.horse/icon/${makeSiteName(address)}`}
-                  alt=""
+                  alt=''
                 />
               </a>
             )}
@@ -1009,44 +1008,44 @@ const Results = (): JSX.Element => {
         showJobDocs={showInfo}
       />
       {address?.includes(
-        window?.location?.hostname || "cyber-secure-hub.xyz"
+        window?.location?.hostname || 'cyber-secure-hub.com'
       ) && <SelfScanMsg />}
       <Loader
         show={
-          loadingJobs.filter((job: LoadingJob) => job.state !== "loading")
+          loadingJobs.filter((job: LoadingJob) => job.state !== 'loading')
             .length < 5
         }
       />
       <FilterButtons>
         {showFilters ? (
           <>
-            <div className="one-half">
-              <span className="group-label">Filter by</span>
-              {["server", "client", "meta"].map((tag: string) => (
+            <div className='one-half'>
+              <span className='group-label'>Filter by</span>
+              {['server', 'client', 'meta'].map((tag: string) => (
                 <button
                   key={tag}
-                  className={tags.includes(tag) ? "selected" : ""}
+                  className={tags.includes(tag) ? 'selected' : ''}
                   onClick={() => updateTags(tag)}
                 >
                   {tag}
                 </button>
               ))}
               {(tags.length > 0 || searchTerm.length > 0) && (
-                <span onClick={clearFilters} className="clear">
+                <span onClick={clearFilters} className='clear'>
                   Clear Filters
                 </span>
               )}
             </div>
-            <div className="one-half">
-              <span className="group-label">Search</span>
+            <div className='one-half'>
+              <span className='group-label'>Search</span>
               <input
-                type="text"
-                placeholder="Filter Results"
+                type='text'
+                placeholder='Filter Results'
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
               <span
-                className="toggle-filters"
+                className='toggle-filters'
                 onClick={() => setShowFilters(false)}
               >
                 Hide
@@ -1054,21 +1053,21 @@ const Results = (): JSX.Element => {
             </div>
           </>
         ) : (
-          <div className="control-options">
+          <div className='control-options'>
             <span
-              className="toggle-filters"
+              className='toggle-filters'
               onClick={() => setShowFilters(true)}
             >
               Show Filters
             </span>
-            <a href="#view-download-raw-data">
-              <span className="toggle-filters">Export Data</span>
+            <a href='#view-download-raw-data'>
+              <span className='toggle-filters'>Export Data</span>
             </a>
-            <a href="/about">
-              <span className="toggle-filters">Learn about the Results</span>
+            <a href='/about'>
+              <span className='toggle-filters'>Learn about the Results</span>
             </a>
-            <a href="/about#additional-resources">
-              <span className="toggle-filters">More tools</span>
+            <a href='/about#additional-resources'>
+              <span className='toggle-filters'>More tools</span>
             </a>
             {/* <a href="https://github.com/suyogwaghere/cyber-secure-hub">
               <span className="toggle-filters">View GitHub</span>
@@ -1090,8 +1089,8 @@ const Results = (): JSX.Element => {
             1200: 2,
             800: 1,
           }}
-          className="masonry-grid"
-          columnClassName="masonry-grid-col"
+          className='masonry-grid'
+          columnClassName='masonry-grid-col'
         >
           {resultCardData.map(
             (
@@ -1121,7 +1120,7 @@ const Results = (): JSX.Element => {
           )}
         </Masonry>
       </ResultsContent>
-      <ViewRaw everything={resultCardData} />
+      {/* <ViewRaw everything={resultCardData} /> */}
       <AdditionalResources url={address} />
 
       <Modal isOpen={modalOpen} closeModal={() => setModalOpen(false)}>
@@ -1131,8 +1130,8 @@ const Results = (): JSX.Element => {
         limit={3}
         draggablePercent={60}
         autoClose={2500}
-        theme="dark"
-        position="bottom-right"
+        theme='dark'
+        position='bottom-right'
       />
       <Footer />
     </ResultsOuter>

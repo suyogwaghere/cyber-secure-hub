@@ -1,11 +1,11 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import Button from "components/Form/Button";
-import { StyledCard } from "components/Form/Card";
-import Heading from "components/Form/Heading";
-import Nav from "components/Form/Nav";
-import { JSX } from "react/jsx-runtime";
-import colors from "styles/colors";
+import Button from 'components/Form/Button';
+import { StyledCard } from 'components/Form/Card';
+import Heading from 'components/Form/Heading';
+import Nav from 'components/Form/Nav';
+import { JSX } from 'react/jsx-runtime';
+import colors from 'styles/colors';
 
 const AboutContainer = styled.div`
   width: 95vw;
@@ -53,21 +53,21 @@ const NotFound = (): JSX.Element => {
       <AboutContainer>
         <Nav />
         <NotFoundInner>
-          <Heading as="h2" size="large" color={colors.primary}>
+          <Heading as='h2' size='large' color={colors.primary}>
             404
           </Heading>
-          <div className="im-drink">🥴</div>
-          <Heading as="h3" size="large" color={colors.primary}>
+          <div className='im-drink'>🥴</div>
+          <Heading as='h3' size='large' color={colors.primary}>
             Not Found
           </Heading>
           <HeaderLinkContainer>
-            <a href="/">
+            <a href='/'>
               <Button>Back to Homepage</Button>
             </a>
           </HeaderLinkContainer>
-          <a href="https://github.com/suyogwaghere/cyber-secure-hub">
+          {/* <a href="https://github.com/suyogwaghere/cyber-secure-hub">
             Report Issue
-          </a>
+          </a> */}
         </NotFoundInner>
       </AboutContainer>
     </>

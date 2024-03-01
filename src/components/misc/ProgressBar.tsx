@@ -1,8 +1,8 @@
-import Card from "components/Form/Card";
-import Heading from "components/Form/Heading";
-import { ReactNode, useEffect, useState } from "react";
-import styled from "styled-components";
-import colors from "styles/colors";
+import Card from 'components/Form/Card';
+import Heading from 'components/Form/Heading';
+import { ReactNode, useEffect, useState } from 'react';
+import styled from 'styled-components';
+import colors from 'styles/colors';
 
 const LoadCard = styled(Card)`
   margin: 0 auto 1rem auto;
@@ -49,14 +49,14 @@ const Details = styled.details`
     cursor: pointer;
   }
   summary:before {
-    content: "►";
+    content: '►';
     position: absolute;
     margin-left: -1rem;
     color: ${colors.primary};
     cursor: pointer;
   }
   &[open] summary:before {
-    content: "▼";
+    content: '▼';
   }
   ul {
     list-style: none;
@@ -133,6 +133,20 @@ const ReShowContainer = styled.div`
   }
 `;
 
+const FetchButton = styled.button`
+  width: fit-content;
+
+  background: ${colors.background};
+  color: ${colors.textColorSecondary};
+  border: none;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-family: PTMono;
+  cursor: pointer;
+  &:hover {
+    color: ${colors.primary};
+  }
+`;
 const DismissButton = styled.button`
   width: fit-content;
   position: absolute;
@@ -180,11 +194,11 @@ const ErrorModalContent = styled.div`
 `;
 
 export type LoadingState =
-  | "success"
-  | "loading"
-  | "skipped"
-  | "error"
-  | "timed-out";
+  | 'success'
+  | 'loading'
+  | 'skipped'
+  | 'error'
+  | 'timed-out';
 
 export interface LoadingJob {
   name: string;
@@ -195,50 +209,50 @@ export interface LoadingJob {
 }
 
 const jobNames = [
-  "get-ip",
-  "location",
-  "ssl",
-  "domain",
-  "quality",
-  "tech-stack",
-  "server-info",
-  "cookies",
-  "headers",
-  "dns",
-  "hosts",
-  "http-security",
-  "social-tags",
-  "trace-route",
-  "security-txt",
-  "dns-server",
-  "firewall",
-  "dnssec",
-  "hsts",
-  "threats",
-  "mail-config",
-  "archives",
-  "rank",
-  "screenshot",
-  "tls-cipher-suites",
-  "tls-security-config",
-  "tls-client-support",
-  "redirects",
-  "linked-pages",
-  "robots-txt",
-  "status",
-  "ports",
+  'get-ip',
+  'location',
+  'ssl',
+  'domain',
+  // 'quality',
+  'tech-stack',
+  'server-info',
+  'cookies',
+  'headers',
+  'dns',
+  'hosts',
+  'http-security',
+  'social-tags',
+  'trace-route',
+  'security-txt',
+  'dns-server',
+  'firewall',
+  'dnssec',
+  'hsts',
+  'threats',
+  'mail-config',
+  'archives',
+  'rank',
+  'screenshot',
+  'tls-cipher-suites',
+  'tls-security-config',
+  'tls-client-support',
+  'redirects',
+  'linked-pages',
+  'robots-txt',
+  'status',
+  'ports',
   // 'whois',
-  "txt-records",
-  "block-lists",
-  "features",
-  "sitemap",
-  "carbon",
+  'txt-records',
+  'block-lists',
+  'features',
+  'sitemap',
+  'carbon',
 ] as const;
 
 export const initialJobs = jobNames.map((job: string) => {
   return {
     name: job,
-    state: "loading" as LoadingState,
+    state: 'loading' as LoadingState,
     retry: () => {},
   };
 });
@@ -254,7 +268,7 @@ export const calculateLoadingStatePercentages = (
     loading: 0,
     skipped: 0,
     error: 0,
-    "timed-out": 0,
+    'timed-out': 0,
   };
 
   // Count the number of each state
@@ -264,11 +278,11 @@ export const calculateLoadingStatePercentages = (
 
   // Convert counts to percentages
   const statePercentage: Record<LoadingState, number> = {
-    success: (stateCount["success"] / totalJobs) * 100,
-    loading: (stateCount["loading"] / totalJobs) * 100,
-    skipped: (stateCount["skipped"] / totalJobs) * 100,
-    error: (stateCount["error"] / totalJobs) * 100,
-    "timed-out": (stateCount["timed-out"] / totalJobs) * 100,
+    success: (stateCount['success'] / totalJobs) * 100,
+    loading: (stateCount['loading'] / totalJobs) * 100,
+    skipped: (stateCount['skipped'] / totalJobs) * 100,
+    error: (stateCount['error'] / totalJobs) * 100,
+    'timed-out': (stateCount['timed-out'] / totalJobs) * 100,
   };
 
   return statePercentage;
@@ -301,12 +315,12 @@ const RunningText = (props: {
 }): JSX.Element => {
   const loadingTasksCount =
     jobNames.length -
-    props.state.filter((val: LoadingJob) => val.state === "loading").length;
+    props.state.filter((val: LoadingJob) => val.state === 'loading').length;
   const isDone = loadingTasksCount >= jobNames.length;
   return (
-    <p className="run-status">
+    <p className='run-status'>
       {isDone
-        ? "Finished in "
+        ? 'Finished in '
         : `Running ${loadingTasksCount} of ${jobNames.length} jobs - `}
       <MillisecondCounter isDone={isDone} />
     </p>
@@ -319,37 +333,37 @@ const SummaryText = (props: {
 }): JSX.Element => {
   const totalJobs = jobNames.length;
   let failedTasksCount = props.state.filter(
-    (val: LoadingJob) => val.state === "error"
+    (val: LoadingJob) => val.state === 'error'
   ).length;
   let loadingTasksCount = props.state.filter(
-    (val: LoadingJob) => val.state === "loading"
+    (val: LoadingJob) => val.state === 'loading'
   ).length;
   let skippedTasksCount = props.state.filter(
-    (val: LoadingJob) => val.state === "skipped"
+    (val: LoadingJob) => val.state === 'skipped'
   ).length;
   let successTasksCount = props.state.filter(
-    (val: LoadingJob) => val.state === "success"
+    (val: LoadingJob) => val.state === 'success'
   ).length;
 
   const jobz = (jobCount: number) =>
-    `${jobCount} ${jobCount === 1 ? "job" : "jobs"}`;
+    `${jobCount} ${jobCount === 1 ? 'job' : 'jobs'}`;
 
   const skippedInfo =
     skippedTasksCount > 0 ? (
-      <span className="skipped">{jobz(skippedTasksCount)} skipped </span>
+      <span className='skipped'>{jobz(skippedTasksCount)} skipped </span>
     ) : null;
   const successInfo =
     successTasksCount > 0 ? (
-      <span className="success">{jobz(successTasksCount)} successful </span>
+      <span className='success'>{jobz(successTasksCount)} successful </span>
     ) : null;
   const failedInfo =
     failedTasksCount > 0 ? (
-      <span className="error">{jobz(failedTasksCount)} failed </span>
+      <span className='error'>{jobz(failedTasksCount)} failed </span>
     ) : null;
 
   if (loadingTasksCount > 0) {
     return (
-      <SummaryContainer className="loading-info">
+      <SummaryContainer className='loading-info'>
         <b>
           Loading {totalJobs - loadingTasksCount} / {totalJobs} Jobs
         </b>
@@ -360,7 +374,7 @@ const SummaryText = (props: {
 
   if (failedTasksCount === 0) {
     return (
-      <SummaryContainer className="success-info">
+      <SummaryContainer className='success-info'>
         <b>{successTasksCount} Jobs Completed Successfully</b>
         {skippedInfo}
       </SummaryContainer>
@@ -368,7 +382,7 @@ const SummaryText = (props: {
   }
 
   return (
-    <SummaryContainer className="error-info">
+    <SummaryContainer className='error-info'>
       {successInfo}
       {skippedInfo}
       {failedInfo}
@@ -387,18 +401,18 @@ const ProgressLoader = (props: {
 
   const loadingTasksCount =
     jobNames.length -
-    loadStatus.filter((val: LoadingJob) => val.state === "loading").length;
+    loadStatus.filter((val: LoadingJob) => val.state === 'loading').length;
   const isDone = loadingTasksCount >= jobNames.length;
 
   const makeBarColor = (colorCode: string): [string, string] => {
     const amount = 10;
     const darkerColorCode =
-      "#" +
+      '#' +
       colorCode
-        .replace(/^#/, "")
+        .replace(/^#/, '')
         .replace(/../g, (colorCode) =>
           (
-            "0" +
+            '0' +
             Math.min(
               255,
               Math.max(0, parseInt(colorCode, 16) - amount)
@@ -415,23 +429,23 @@ const ProgressLoader = (props: {
     loading: makeBarColor(colors.info),
     skipped: makeBarColor(colors.warning),
     error: makeBarColor(colors.danger),
-    "timed-out": makeBarColor(colors.neutral),
+    'timed-out': makeBarColor(colors.primary),
   };
 
   const getStatusEmoji = (state: LoadingState): string => {
     switch (state) {
-      case "success":
-        return "✅";
-      case "loading":
-        return "🔄";
-      case "skipped":
-        return "⏭️";
-      case "error":
-        return "❌";
-      case "timed-out":
-        return "⏸️";
+      case 'success':
+        return '✅';
+      case 'loading':
+        return '🔄';
+      case 'skipped':
+        return '⏭️';
+      case 'error':
+        return '❌';
+      case 'timed-out':
+        return '⏸️';
       default:
-        return "❓";
+        return '❓';
     }
   };
 
@@ -444,26 +458,38 @@ const ProgressLoader = (props: {
   ) => {
     const errorContent = (
       <ErrorModalContent>
-        <Heading as="h3">Error Details for {name}</Heading>
+        <Heading as='h3'>Error Details for {name}</Heading>
         <p>
           The {name} job failed with an {state} state after {timeTaken} ms. The
           server responded with the following error:
         </p>
         {/* If isInfo == true, then add .info className to pre */}
-        <pre className={isInfo ? "info" : "error"}>{error}</pre>
+        <pre className={isInfo ? 'info' : 'error'}>{error}</pre>
       </ErrorModalContent>
     );
     props.showModal(errorContent);
   };
 
+  const handleFetchAll = async () => {
+    try {
+      const jobsToRetry = loadStatus.filter(
+        (job) =>
+          (job.state === 'error' || 'timed-out' || 'skipped') && job.retry
+      );
+      await Promise.all(jobsToRetry.map((job: any) => job.retry()));
+    } catch (error) {
+      console.error('Error retrying all jobs:', error);
+    }
+  };
+
   return (
     <>
-      <ReShowContainer className={!hideLoader ? "hidden" : ""}>
+      <ReShowContainer className={!hideLoader ? 'hidden' : ''}>
         <DismissButton onClick={() => setHideLoader(false)}>
           Show Load State
         </DismissButton>
       </ReShowContainer>
-      <LoadCard className={hideLoader ? "hidden" : ""}>
+      <LoadCard className={hideLoader ? 'hidden' : ''}>
         <ProgressBarContainer>
           {Object.keys(percentages).map((state: string | LoadingState) => (
             <ProgressBarSegment
@@ -492,21 +518,21 @@ const ProgressLoader = (props: {
                       {getStatusEmoji(state)} {name}
                     </b>
                     <span style={{ color: barColors[state][0] }}>
-                      {" "}
+                      {' '}
                       ({state})
                     </span>
                     .
                     <i>
-                      {timeTaken && state !== "loading"
+                      {timeTaken && state !== 'loading'
                         ? ` Took ${timeTaken} ms`
-                        : ""}
+                        : ''}
                     </i>
-                    {retry && state !== "success" && state !== "loading" && (
+                    {retry && state !== 'success' && state !== 'loading' && (
                       <FailedJobActionButton onClick={retry}>
                         ↻ Retry
                       </FailedJobActionButton>
                     )}
-                    {error && state === "error" && (
+                    {error && state === 'error' && (
                       <FailedJobActionButton
                         onClick={() =>
                           showErrorModal(name, state, timeTaken, error)
@@ -515,7 +541,7 @@ const ProgressLoader = (props: {
                         ■ Show Error
                       </FailedJobActionButton>
                     )}
-                    {error && state === "skipped" && (
+                    {error && state === 'skipped' && (
                       <FailedJobActionButton
                         onClick={() =>
                           showErrorModal(name, state, timeTaken, error, true)
@@ -529,9 +555,9 @@ const ProgressLoader = (props: {
               }
             )}
           </ul>
-          {loadStatus.filter((val: LoadingJob) => val.state === "error")
+          {loadStatus.filter((val: LoadingJob) => val.state === 'error')
             .length > 0 && (
-            <p className="error">
+            <p className='error'>
               <b>Check the browser console for logs and more info</b>
               <br />
               It's normal for some jobs to fail, either because the host doesn't
@@ -539,10 +565,11 @@ const ProgressLoader = (props: {
               or hitting an API limit.
             </p>
           )}
-          <AboutPageLink href="/about" target="_blank" rel="noreferer">
+          <AboutPageLink href='/about' target='_blank' rel='noreferer'>
             Learn More about Cyber-Secure-Hub
           </AboutPageLink>
         </Details>
+        <FetchButton onClick={() => handleFetchAll()}>↻ Fetch All</FetchButton>
         <DismissButton onClick={() => setHideLoader(true)}>
           Dismiss
         </DismissButton>

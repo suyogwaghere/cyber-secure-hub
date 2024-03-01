@@ -1,14 +1,15 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from 'react';
 // routes
-import { useRouter } from "routes/hook";
-import { paths } from "routes/paths";
+import { useRouter } from 'routes/hook';
+import { paths } from 'routes/paths';
 //
-import { useAuthContext } from "../hooks";
+import { useAuthContext } from '../hooks';
 
 // ----------------------------------------------------------------------
 
 const loginPaths: Record<string, string> = {
-  jwt: paths.auth.jwt.login,
+  // jwt: paths.auth.jwt.login,
+  firebase: paths.auth.firebase.login,
 };
 
 // ----------------------------------------------------------------------
@@ -31,6 +32,7 @@ export default function AuthGuard({ children }: Props) {
       }).toString();
 
       const loginPath = loginPaths[method];
+      console.log('🚀 ~ loginPath:', loginPath);
 
       const href = `${loginPath}?${searchParams}`;
 

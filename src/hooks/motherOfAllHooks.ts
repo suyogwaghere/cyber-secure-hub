@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-import { LoadingState } from "components/misc/ProgressBar";
-import { AddressType } from "utils/address-type-checker";
+import { LoadingState } from 'components/misc/ProgressBar';
+import { AddressType } from 'utils/address-type-checker';
 
 interface UseIpAddressProps<ResultType = any> {
   // Unique identifier for this job type
@@ -48,25 +48,25 @@ const useMotherOfAllHooks = <ResultType = any>(
       .then((res: any) => {
         if (!res) {
           // No response :(
-          updateLoadingJobs(jobId, "error", res.error || "No response", reset);
+          updateLoadingJobs(jobId, 'error', res.error || 'No response', reset);
         } else if (res.error) {
           // Response returned an error message
-          updateLoadingJobs(jobId, "error", res.error, reset);
+          updateLoadingJobs(jobId, 'error', res.error, reset);
         } else if (res.skipped) {
           // Response returned a skipped message
-          updateLoadingJobs(jobId, "skipped", res.skipped, reset);
+          updateLoadingJobs(jobId, 'skipped', res.skipped, reset);
         } else {
           // Yay, everything went to plan :)
           setResult(res);
-          updateLoadingJobs(jobId, "success", "", undefined, res);
+          updateLoadingJobs(jobId, 'success', '', undefined, res);
         }
       })
       .catch((err) => {
         // Something fucked up
         updateLoadingJobs(
           jobId,
-          "error",
-          err.error || err.message || "Unknown error",
+          'error',
+          err.error || err.message || 'Unknown error',
           reset
         );
         throw err;
@@ -80,13 +80,14 @@ const useMotherOfAllHooks = <ResultType = any>(
       setResult(data);
     } else {
       // Otherwise, trigger a data re-fetch
-      updateLoadingJobs(jobId, "loading");
+      updateLoadingJobs(jobId, 'loading');
       const fetchyFetch = doTheFetch();
       const toastOptions = {
-        pending: `Updating Data (${jobId})`,
+        // pending: `Updating Data (${jobId})`,
         success: `Completed (${jobId})`,
         error: `Failed to update (${jobId})`,
         skipped: `Skipped job (${jobId}), as no valid results for host`,
+        draggable: true,
       };
       // Initiate fetch, and show progress toast
       toast.promise(fetchyFetch, toastOptions).catch(() => {});
@@ -100,7 +101,7 @@ const useMotherOfAllHooks = <ResultType = any>(
     }
     // This job isn't needed for this address type, cancel job
     if (!expectedAddressTypes.includes(addressType)) {
-      if (addressType !== "empt") updateLoadingJobs(jobId, "skipped");
+      if (addressType !== 'empt') updateLoadingJobs(jobId, 'skipped');
       return;
     }
 

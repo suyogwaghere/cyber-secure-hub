@@ -1,19 +1,18 @@
-import { ChangeEvent, FormEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import { ChangeEvent, FormEvent, useState } from 'react';
+import styled from 'styled-components';
 
-import Button from "components/Form/Button";
-import { StyledCard } from "components/Form/Card";
-import Heading from "components/Form/Heading";
-import Input from "components/Form/Input";
+import Button from 'components/Form/Button';
+import { StyledCard } from 'components/Form/Card';
+import Heading from 'components/Form/Heading';
+import Input from 'components/Form/Input';
 
-import Navbar from "components/Navbar";
-import Footer from "components/misc/Footer";
-import { useRouter } from "routes/hook";
-import { paths } from "routes/paths";
-import colors from "styles/colors";
-import { determineAddressType } from "utils/address-type-checker";
-import docs from "utils/docs";
+import Navbar from 'components/Navbar';
+import Footer from 'components/misc/Footer';
+import { useRouter } from 'routes/hook';
+import { paths } from 'routes/paths';
+import colors from 'styles/colors';
+import { determineAddressType } from 'utils/address-type-checker';
+import docs from 'utils/docs';
 
 const HomeContainer = styled.section`
   display: flex;
@@ -22,7 +21,7 @@ const HomeContainer = styled.section`
   justify-content: center;
   align-items: center;
   height: 100%;
-  font-family: "PTMono";
+  font-family: 'PTMono';
   padding: 0 1rem;
   footer {
     z-index: 1;
@@ -89,7 +88,7 @@ const SiteFeaturesWrapper = styled(StyledCard)`
       break-inside: avoid-column;
     }
     li:before {
-      content: "✓";
+      content: '✓';
       color: ${colors.primary};
       margin-right: 0.5rem;
     }
@@ -100,27 +99,26 @@ const SiteFeaturesWrapper = styled(StyledCard)`
 `;
 
 const Home = (): JSX.Element => {
-  const defaultPlaceholder = "e.g. https://example.com/";
-  const [userInput, setUserInput] = useState("");
-  const [errorMsg, setErrMsg] = useState("");
+  const defaultPlaceholder = 'e.g. https://example.com/';
+  const [userInput, setUserInput] = useState('');
+  const [errorMsg, setErrMsg] = useState('');
   const [placeholder] = useState(defaultPlaceholder);
   const [inputDisabled] = useState(false);
-  const navigate = useNavigate();
   const router = useRouter();
 
   /* Check is valid address, either show err or redirect to results page */
   const submit = () => {
-    let address = userInput.endsWith("/") ? userInput.slice(0, -1) : userInput;
+    let address = userInput.endsWith('/') ? userInput.slice(0, -1) : userInput;
     const addressType = determineAddressType(address);
 
-    if (addressType === "empt") {
-      setErrMsg("Field must not be empty");
-    } else if (addressType === "err") {
-      setErrMsg("Must be a valid URL, IPv4 or IPv6 Address");
+    if (addressType === 'empt') {
+      setErrMsg('Field must not be empty');
+    } else if (addressType === 'err') {
+      setErrMsg('Must be a valid URL, IPv4 or IPv6 Address');
     } else {
       // if the addressType is 'url' and address doesn't start with 'http://' or 'https://', prepend 'https://'
-      if (addressType === "url" && !/^https?:\/\//i.test(address)) {
-        address = "https://" + address;
+      if (addressType === 'url' && !/^https?:\/\//i.test(address)) {
+        address = 'https://' + address;
       }
       // const resultRouteParams: NavigateOptions = {
       //   state: { address, addressType },
@@ -135,10 +133,10 @@ const Home = (): JSX.Element => {
   /* Update user input state, and hide error message if field is valid */
   const inputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setUserInput(event.target.value);
-    const isError = ["err", "empt"].includes(
+    const isError = ['err', 'empt'].includes(
       determineAddressType(event.target.value)
     );
-    if (!isError) setErrMsg("");
+    if (!isError) setErrMsg('');
   };
 
   // const findIpAddress = () => {
@@ -168,20 +166,20 @@ const Home = (): JSX.Element => {
       {/* <FancyBackground /> */}
       <Navbar />
       <UserInputMain onSubmit={formSubmitEvent}>
-        <Heading as="h1" size="xLarge" align="center" color={colors.primary}>
+        <Heading as='h1' size='xLarge' align='center' color={colors.primary}>
           <img
-            style={{ width: "128px", height: "128px", marginRight: "0.5rem" }}
-            src="/cyber-secure-hub.png"
-            alt="Cyber Secure Hub Icon"
+            style={{ width: '128px', height: '128px', marginRight: '0.5rem' }}
+            src='/cyber-secure-hub.png'
+            alt='Cyber Secure Hub Icon'
           />
           Cyber Secure Hub
         </Heading>
         <Input
-          id="user-input"
+          id='user-input'
           value={userInput}
-          label="Enter a URL"
-          size="large"
-          orientation="vertical"
+          label='Enter a URL'
+          size='large'
+          orientation='vertical'
           placeholder={placeholder}
           disabled={inputDisabled}
           handleChange={inputChange}
@@ -189,20 +187,20 @@ const Home = (): JSX.Element => {
         {/* <FindIpButton onClick={findIpAddress}>Or, find my IP</FindIpButton> */}
         {errorMsg && <ErrorMessage>{errorMsg}</ErrorMessage>}
         <Button
-          styles="width: calc(100% - 1rem);"
-          size="large"
+          styles='width: calc(100% - 1rem);'
+          size='large'
           onClick={submit}
         >
           Analyze!
         </Button>
       </UserInputMain>
       <SiteFeaturesWrapper>
-        <div className="features">
-          <Heading as="h2" size="small" color={colors.primary}>
+        <div className='features'>
+          <Heading as='h2' size='small' color={colors.primary}>
             Supported Checks
           </Heading>
           <ul>
-            {docs.slice(0, 5).map((doc, index) => (
+            {docs.map((doc, index) => (
               <li key={index}>{doc.title}</li>
             ))}
             <li
@@ -211,9 +209,9 @@ const Home = (): JSX.Element => {
               }}
             >
               <span
-                className="moreButton"
+                className='moreButton'
                 style={{
-                  cursor: "pointer",
+                  cursor: 'pointer',
                 }}
               >
                 + more!
@@ -222,7 +220,7 @@ const Home = (): JSX.Element => {
           </ul>
         </div>
       </SiteFeaturesWrapper>
-      <Footer isFixed />
+      <Footer />
     </HomeContainer>
   );
 };

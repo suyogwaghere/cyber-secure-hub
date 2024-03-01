@@ -1,5 +1,5 @@
 import * as Sentry from "@sentry/react";
-import { AuthConsumer, AuthProvider } from "auth/context/jwt";
+import { AuthConsumer, AuthProvider } from "auth/context/firebase";
 import Router from "routes/sections";
 import Styled from "styled-components";
 
@@ -8,8 +8,6 @@ import colors from "styles/colors";
 const Container = Styled.main`
   background: ${colors.background};
   color: ${colors.textColor};
-// width: 98vw;
-    // height: 89vh;
   margin: 0;
 `;
 
