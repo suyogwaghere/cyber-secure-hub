@@ -1,14 +1,14 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import { Box } from "@mui/material";
-import { StyledCard } from "components/Form/Card";
-import Heading from "components/Form/Heading";
-import Nav from "components/Form/Nav";
-import Navbar from "components/Navbar";
-import AdditionalResources from "components/misc/AdditionalResources";
-import Footer from "components/misc/Footer";
-import colors from "styles/colors";
-import docs, { about, featureIntro } from "utils/docs";
+import { Box } from '@mui/material';
+import { StyledCard } from 'components/Form/Card';
+import Heading from 'components/Form/Heading';
+import Nav from 'components/Form/Nav';
+import Navbar from 'components/Navbar';
+import AdditionalResources from 'components/misc/AdditionalResources';
+import Footer from 'components/misc/Footer';
+import colors from 'styles/colors';
+import docs, { about, featureIntro } from 'utils/docs';
 
 const AboutContainer = styled.div`
   display: flex;
@@ -125,8 +125,8 @@ const Section = styled(StyledCard)`
 const makeAnchor = (title: string): string => {
   return title
     .toLowerCase()
-    .replace(/[^\w\s]|_/g, "")
-    .replace(/\s+/g, "-");
+    .replace(/[^\w\s]|_/g, '')
+    .replace(/\s+/g, '-');
 };
 
 const About = (): JSX.Element => {
@@ -143,30 +143,30 @@ const About = (): JSX.Element => {
           </HeaderLinkContainer>
         </Nav>
 
-        <Heading as="h2" size="medium" color={colors.primary}>
+        <Heading as='h2' size='medium' color={colors.primary}>
           Intro
         </Heading>
         <Section>
           {about.map((para, index: number) => (
-            <p className="about-section" key={index}>
+            <p className='about-section' key={index}>
               {para}
             </p>
           ))}
           <hr />
         </Section>
 
-        <Heading as="h2" size="medium" color={colors.primary}>
+        <Heading as='h2' size='medium' color={colors.primary}>
           Features
         </Heading>
-        <Section className="features-section">
+        <Section className='features-section'>
           {featureIntro.map((fi: string, i: number) => (
             <p key={i}>{fi}</p>
           ))}
-          <div className="contents">
+          <div className='contents'>
             <Heading
-              as="h3"
-              size="small"
-              id="#feature-contents"
+              as='h3'
+              size='small'
+              id='#feature-contents'
               color={colors.primary}
             >
               Contents
@@ -185,17 +185,17 @@ const About = (): JSX.Element => {
             <section key={section.title}>
               {sectionIndex > 0 && <hr />}
               <Heading
-                as="h3"
-                size="small"
+                as='h3'
+                size='small'
                 id={makeAnchor(section.title)}
                 color={colors.primary}
               >
                 {section.title}
               </Heading>
               {section.screenshot && (
-                <figure className="example-screenshot">
+                <figure className='example-screenshot'>
                   <img
-                    className="screenshot"
+                    className='screenshot'
                     src={section.screenshot}
                     alt={`Example Screenshot ${section.title}`}
                   />
@@ -206,7 +206,7 @@ const About = (): JSX.Element => {
               )}
               {section.description && (
                 <>
-                  <Heading as="h4" size="small">
+                  <Heading as='h4' size='small'>
                     Description
                   </Heading>
                   <p>{section.description}</p>
@@ -214,7 +214,7 @@ const About = (): JSX.Element => {
               )}
               {section.use && (
                 <>
-                  <Heading as="h4" size="small">
+                  <Heading as='h4' size='small'>
                     Use Cases
                   </Heading>
                   <p>{section.use}</p>
@@ -222,7 +222,7 @@ const About = (): JSX.Element => {
               )}
               {section.resources && section.resources.length > 0 && (
                 <>
-                  <Heading as="h4" size="small">
+                  <Heading as='h4' size='small'>
                     Useful Links
                   </Heading>
                   <ul>
@@ -231,17 +231,17 @@ const About = (): JSX.Element => {
                         link: string | { title: string; link: string },
                         linkIndx: number
                       ) =>
-                        typeof link === "string" ? (
+                        typeof link === 'string' ? (
                           <li id={`link-${linkIndx}`}>
-                            <a target="_blank" rel="noreferrer" href={link}>
+                            <a target='_blank' rel='noreferrer' href={link}>
                               {link}
                             </a>
                           </li>
                         ) : (
                           <li id={`link-${linkIndx}`}>
                             <a
-                              target="_blank"
-                              rel="noreferrer"
+                              target='_blank'
+                              rel='noreferrer'
                               href={link.link}
                             >
                               {link.title}
@@ -257,14 +257,14 @@ const About = (): JSX.Element => {
         </Section>
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            marginBottom: "2rem",
-            gap: "1rem",
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            marginBottom: '2rem',
+            gap: '1rem',
           }}
         >
-          <Heading as="h2" size="medium" color={colors.primary}>
+          <Heading as='h2' size='medium' color={colors.primary}>
             Additional Resources
           </Heading>
         </Box>

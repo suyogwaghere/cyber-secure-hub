@@ -1,11 +1,11 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import { Box } from "@mui/material";
-import { StyledCard } from "components/Form/Card";
-import Heading from "components/Form/Heading";
-import { ReactNode } from "react";
-import { useRouter } from "routes/hook";
-import colors from "styles/colors";
+import { Box } from '@mui/material';
+import { StyledCard } from 'components/Form/Card';
+import Heading from 'components/Form/Heading';
+import { ReactNode } from 'react';
+import { useRouter } from 'routes/hook';
+import colors from 'styles/colors';
 
 const Header = styled(StyledCard)`
   margin: 1rem auto;
@@ -21,24 +21,24 @@ const Header = styled(StyledCard)`
 const Nav = (props: { children?: ReactNode }) => {
   const router = useRouter();
   return (
-    <Header as="header">
-      <Heading color={colors.primary} size="large">
+    <Header as='header'>
+      <Heading color={colors.primary} size='large' align='center'>
         <img
-          width="128"
-          src="/cyber-secure-hub.png"
-          alt="Cyber Secure Hub Icon"
+          width='128'
+          src='/cyber-secure-hub.png'
+          alt='Cyber Secure Hub Icon'
           style={{
-            width: "128px",
-            height: "128px",
-            marginRight: "0.5rem",
+            width: '128px',
+            height: '128px',
+            marginRight: '0.5rem',
           }}
         />
         <Box
           onClick={() => {
-            router.push("/");
+            router.push('/');
           }}
           sx={{
-            cursor: "pointer",
+            cursor: 'pointer',
           }}
         >
           Cyber Secure Hub

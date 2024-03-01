@@ -1,13 +1,7 @@
-import { Navigate, useRoutes } from "react-router-dom";
-// layouts
-
-// config
-// import { PATH_AFTER_LOGIN } from 'config-global';
-//
-import { authRoutes } from "./auth";
-
-import { PATH_AFTER_ON } from "config-global";
-import { mainRoutes } from "./main";
+import { PATH_AFTER_ON } from 'config-global';
+import { Navigate, useRoutes } from 'react-router-dom';
+import { authRoutes } from './auth';
+import { mainRoutes } from './main';
 
 // ----------------------------------------------------------------------
 
@@ -15,7 +9,7 @@ export default function Router() {
   return useRoutes([
     // SET INDEX PAGE WITH SKIP HOME PAGE
     {
-      path: "/",
+      path: '/',
       element: <Navigate to={PATH_AFTER_ON} replace />,
     },
 
@@ -34,6 +28,6 @@ export default function Router() {
     ...mainRoutes,
 
     // No match 404
-    { path: "*", element: <Navigate to="/404" replace /> },
+    { path: '*', element: <Navigate to='/404' replace /> },
   ]);
 }

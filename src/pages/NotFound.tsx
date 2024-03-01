@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 import Button from 'components/Form/Button';
 import { StyledCard } from 'components/Form/Card';
-import Heading from 'components/Form/Heading';
 import Nav from 'components/Form/Nav';
 import { JSX } from 'react/jsx-runtime';
 import colors from 'styles/colors';
@@ -53,13 +52,18 @@ const NotFound = (): JSX.Element => {
       <AboutContainer>
         <Nav />
         <NotFoundInner>
-          <Heading as='h2' size='large' color={colors.primary}>
+          {/* <Heading as='h2' size='large' color={colors.primary}>
             404
           </Heading>
-          <div className='im-drink'>🥴</div>
-          <Heading as='h3' size='large' color={colors.primary}>
+          <div className='im-drink'>🥴</div> */}
+          <embed
+            src='assets/404-page-not-found.svg'
+            style={{ width: '400px', height: '400px' }}
+          />
+
+          {/* <Heading as='h3' size='large' color={colors.primary}>
             Not Found
-          </Heading>
+          </Heading> */}
           <HeaderLinkContainer>
             <a href='/'>
               <Button>Back to Homepage</Button>

@@ -1,23 +1,19 @@
-import { lazy, Suspense } from "react";
-import { Outlet } from "react-router-dom";
-// layouts
-
-// components
-import { AuthGuard } from "auth/guard";
-import Results from "pages/Results";
-import { SplashScreen } from "../../components/loading-screen";
+import { AuthGuard } from 'auth/guard';
+import { lazy, Suspense } from 'react';
+import { Outlet } from 'react-router-dom';
+import { SplashScreen } from '../../components/loading-screen';
 
 // ----------------------------------------------------------------------
 
-export const HomePage = lazy(() => import("pages/Home"));
+const HomePage = lazy(() => import('pages/Home'));
 
-const Page404 = lazy(() => import("pages/NotFound"));
+const Page404 = lazy(() => import('pages/NotFound'));
 
-const AboutPage = lazy(() => import("pages/About"));
-// PRODUCT
-// const ProductListPage = lazy(() => import("./../pages/product/list"));
-// const ProductDetailsPage = lazy(() => import("./../pages/product/details"));
-// const ProductCheckoutPage = lazy(() => import("./../pages/product/checkout"));
+const AboutPage = lazy(() => import('pages/About'));
+
+const TeamsPage = lazy(() => import('pages/Teams'));
+
+const ResultsPage = lazy(() => import('pages/Results'));
 
 // ----------------------------------------------------------------------
 
@@ -31,38 +27,18 @@ export const mainRoutes = [
       </AuthGuard>
     ),
     children: [
-      { path: "home", element: <HomePage /> },
-      { path: "about", element: <AboutPage /> },
-      { path: "results/:address", element: <Results /> },
+      { path: 'home', element: <HomePage /> },
+      { path: 'about', element: <AboutPage /> },
+      { path: 'teams', element: <TeamsPage /> },
+      { path: 'results/:address', element: <ResultsPage /> },
     ],
   },
-
-  // {
-  //   element: (
-  //     <AuthGuard>
-  //       <Suspense fallback={<SplashScreen />}>
-  //         <Outlet />
-  //       </Suspense>
-  //     </AuthGuard>
-  //   ),
-  //   children: [{ path: "about", element: <AboutPage /> }],
-  // },
-  // {
-  //   element: (
-  //     <AuthGuard>
-  //       <Suspense fallback={<SplashScreen />}>
-  //         <Outlet />
-  //       </Suspense>
-  //     </AuthGuard>
-  //   ),
-  //   children: [{ path: "results/:address", element: <Results /> }],
-  // },
   {
     element: (
       <Suspense fallback={<SplashScreen />}>
         <Outlet />
       </Suspense>
     ),
-    children: [{ path: "404", element: <Page404 /> }],
+    children: [{ path: '404', element: <Page404 /> }],
   },
 ];

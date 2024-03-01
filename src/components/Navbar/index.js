@@ -23,7 +23,7 @@ const Navbar = () => {
             About
           </NavLink>
 
-          <NavLink to='/team' aria-disabled>
+          <NavLink to='/teams' aria-disabled>
             Teams
           </NavLink>
           {!authenticated && (
@@ -33,7 +33,7 @@ const Navbar = () => {
           )}
         </NavMenu>
         {authenticated && (
-          <NavItem to='/team' aria-disabled>
+          <NavItem to='/' aria-disabled>
             Welcome to Cyber-Secure-Hub,
             <span>{user && titleCase(user.name || user.displayName)}</span>!
           </NavItem>
