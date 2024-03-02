@@ -15,7 +15,7 @@ const profiles = [
     name: 'Suyog Waghere',
     description:
       'Experienced software engineer with a passion for building robust and scalable applications.',
-    role: 'Creative Leader',
+    role: 'FullStack Developer',
     socialIcons: [
       <FaTwitterSquare size={50} key='twitter' />,
       <FaGithubSquare size={50} key='github' />,
@@ -31,22 +31,39 @@ const profiles = [
     imageUrl: '/assets/profiles/harsh.png',
     name: 'Harsh Pardeshi',
     description:
-      'Skilled software engineer specializing in web development with expertise in React and Node.js.',
-    role: 'Software Engineer',
+      'A cyber guardian, wielding expertise to defend digital domains with precision and resilience.',
+    role: 'Cybersecurity Enthusiast',
     socialIcons: [
       <FaTwitterSquare size={50} key='twitter' />,
       <FaGithubSquare size={50} key='github' />,
       <FaLinkedin size={50} key='linkedin' />,
     ],
     socialLinks: [
-      { twitter: 'https://twitter.com/harsh' },
-      { github: 'https://github.com/harsh' },
-      { linkedin: 'https://www.linkedin.com/' },
+      { twitter: 'https://twitter.com/justblaz3i' },
+      { github: 'https://github.com/hxrshexe' },
+      { linkedin: 'https://www.linkedin.com/in/harsh-pardeshi-182669224' },
     ],
   },
   {
     imageUrl: '/assets/profiles/shrinad.png',
     name: 'Shrinad Patil',
+    description:
+      'Skilled DevOps engineer adept at optimizing infrastructure for efficient development and deployment.',
+    role: 'DevOps Engineer',
+    socialIcons: [
+      <FaTwitterSquare size={50} key='twitter' />,
+      <FaGithubSquare size={50} key='github' />,
+      <FaLinkedin size={50} key='linkedin' />,
+    ],
+    socialLinks: [
+      { twitter: 'https://x.com/patil_shrinad' },
+      { github: 'https://github.com/Shrinad-99' },
+      { linkedin: 'https://www.linkedin.com/in/shrinad-patil-3700ab232' },
+    ],
+  },
+  {
+    imageUrl: '/assets/profiles/krunal.png',
+    name: 'Krunal Kurhe',
     description:
       'Passionate UI/UX designer with a keen eye for detail and a focus on user-centric design.',
     role: 'UI/UX Designer',
@@ -56,26 +73,9 @@ const profiles = [
       <FaLinkedin size={50} key='linkedin' />,
     ],
     socialLinks: [
-      { twitter: 'https://twitter.com/' },
-      { github: 'https://github.com/' },
-      { linkedin: 'https://www.linkedin.com/' },
-    ],
-  },
-  {
-    imageUrl: '/assets/profiles/krunal.png',
-    name: 'Krunal Kurhe',
-    description:
-      'Seasoned project manager with a track record of delivering successful projects on time and within budget.',
-    role: 'Project Manager',
-    socialIcons: [
-      <FaTwitterSquare size={50} key='twitter' />,
-      <FaGithubSquare size={50} key='github' />,
-      <FaLinkedin size={50} key='linkedin' />,
-    ],
-    socialLinks: [
-      { twitter: 'https://twitter.com/' },
-      { github: 'https://github.com/' },
-      { linkedin: 'https://www.linkedin.com/' },
+      { twitter: 'https://twitter.com/krunalkurhe' },
+      { github: 'https://github.com/krunalk75' },
+      { linkedin: 'https://www.linkedin.com/in/krunal-kurhe-a2aa84270' },
     ],
   },
 ];
