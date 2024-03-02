@@ -36,7 +36,7 @@ const Heading = styled.div`
 // Styled component for the description
 const Description = styled.div`
   align-self: stretch;
-  height: 103.79px;
+  height: 150px;
   padding: 0.79px 5.2px;
   flex-direction: column;
   text-align: center;
@@ -47,6 +47,7 @@ const Description = styled.div`
 // Styled component for the role
 const Role = styled.div`
   text-align: center;
+  height: 35px;
   color: white;
   font-size: 16px;
   font-weight: 700;
