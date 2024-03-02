@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 import { StyledCard } from 'components/Form/Card';
 import Heading from 'components/Form/Heading';
 import Nav from 'components/Form/Nav';
-import Navbar from 'components/Navbar';
+import NavbarDemo from 'components/Navbar';
 import AdditionalResources from 'components/misc/AdditionalResources';
 import Footer from 'components/misc/Footer';
 import colors from 'styles/colors';
@@ -12,8 +12,9 @@ import docs, { about, featureIntro } from 'utils/docs';
 
 const AboutContainer = styled.div`
   display: flex;
+  padding: 0 1rem;
+  font-family: 'PTMono';
   flex-direction: column;
-  margin: 1rem;
   header {
     margin: 1rem 0;
     width: auto;
@@ -133,7 +134,7 @@ const About = (): JSX.Element => {
   return (
     <div>
       <AboutContainer>
-        <Navbar />
+        <NavbarDemo />
         {/* <Footer isFixed /> */}
         <Nav>
           <HeaderLinkContainer>

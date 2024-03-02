@@ -8,7 +8,7 @@ import Input from 'components/Form/Input';
 
 import { Box, Link, Typography } from '@mui/material';
 import { useAuthContext } from 'auth/hooks';
-import Navbar from 'components/Navbar';
+import NavbarDemo from 'components/Navbar';
 import { paths } from 'routes/paths';
 import colors from 'styles/colors';
 import { determineAddressType } from 'utils/address-type-checker';
@@ -120,7 +120,7 @@ const Register = (): JSX.Element => {
   };
   return (
     <HomeContainer>
-      <Navbar />
+      <NavbarDemo />
       <UserInputMain onSubmit={formSubmitEvent}>
         <Heading as='h1' size='xLarge' align='center' color={colors.primary}>
           Register

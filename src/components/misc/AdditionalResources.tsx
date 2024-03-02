@@ -89,9 +89,10 @@ const Note = styled.small`
 `;
 
 const CardStyles = `
-  margin: 0 auto 1rem auto;
-  width: 95vw;
-  position: relative;
+  // margin: 0 auto 1rem auto;
+  max-height: 90rem !important;
+  width: 95vw; 
+  position: relative; 
   transition: all 0.2s ease-in-out;
 `;
 

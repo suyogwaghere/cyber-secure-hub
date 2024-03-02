@@ -6,7 +6,7 @@ import { StyledCard } from 'components/Form/Card';
 import Heading from 'components/Form/Heading';
 import Input from 'components/Form/Input';
 
-import Navbar from 'components/Navbar';
+import NavbarDemo from 'components/Navbar';
 import Footer from 'components/misc/Footer';
 import { useRouter } from 'routes/hook';
 import { paths } from 'routes/paths';
@@ -16,7 +16,6 @@ import docs from 'utils/docs';
 
 const HomeContainer = styled.section`
   display: flex;
-  margin-top: 1rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -164,7 +163,7 @@ const Home = (): JSX.Element => {
   return (
     <HomeContainer>
       {/* <FancyBackground /> */}
-      <Navbar />
+      <NavbarDemo />
       <UserInputMain onSubmit={formSubmitEvent}>
         <Heading as='h1' size='xLarge' align='center' color={colors.primary}>
           <img

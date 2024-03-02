@@ -1,16 +1,16 @@
-import { ChangeEvent, FormEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import { ChangeEvent, FormEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
-import Button from "components/Form/Button";
-import Heading from "components/Form/Heading";
-import Input from "components/Form/Input";
+import Button from 'components/Form/Button';
+import Heading from 'components/Form/Heading';
+import Input from 'components/Form/Input';
 
-import { Box, Link, Typography } from "@mui/material";
-import { useAuthContext } from "auth/hooks";
-import Navbar from "components/Navbar";
-import colors from "styles/colors";
-import { determineAddressType } from "utils/address-type-checker";
+import { Box, Link, Typography } from '@mui/material';
+import { useAuthContext } from 'auth/hooks';
+import NavbarDemo from 'components/Navbar';
+import colors from 'styles/colors';
+import { determineAddressType } from 'utils/address-type-checker';
 
 const HomeContainer = styled.section`
   display: flex;
@@ -19,7 +19,7 @@ const HomeContainer = styled.section`
   justify-content: center;
   align-items: center;
   height: 100%;
-  font-family: "PTMono";
+  font-family: 'PTMono';
   padding: 0 1rem;
   footer {
     z-index: 1;
@@ -48,11 +48,11 @@ interface LoginProps {}
 
 const Login: React.FC<LoginProps> = () => {
   const [userData, setUserData] = useState({
-    userEmail: "",
-    userPassword: "",
+    userEmail: '',
+    userPassword: '',
   });
 
-  const [errorMsg, setErrMsg] = useState("");
+  const [errorMsg, setErrMsg] = useState('');
   const [inputDisabled] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuthContext();
@@ -69,23 +69,23 @@ const Login: React.FC<LoginProps> = () => {
   };
 
   const validateUserData = (userData: any) => {
-    if (userData.userEmail === "" && userData.userPassword === "") {
-      return "Email and Password are required";
-    } else if (userData.userEmail === "") {
-      return "Email is required";
-    } else if (userData.userPassword === "") {
-      return "Password is required";
+    if (userData.userEmail === '' && userData.userPassword === '') {
+      return 'Email and Password are required';
+    } else if (userData.userEmail === '') {
+      return 'Email is required';
+    } else if (userData.userPassword === '') {
+      return 'Password is required';
     } else if (
       !isEmailValid(userData.userEmail) &&
       !isPasswordValid(userData.userPassword)
     ) {
-      return "Invalid Email and Password";
+      return 'Invalid Email and Password';
     } else if (!isEmailValid(userData.userEmail)) {
-      return "Invalid Email";
+      return 'Invalid Email';
     } else if (!isPasswordValid(userData.userPassword)) {
-      return "Invalid Password";
+      return 'Invalid Password';
     } else {
-      return ""; // Return empty string if both email and password are valid
+      return ''; // Return empty string if both email and password are valid
     }
   };
 
@@ -95,10 +95,10 @@ const Login: React.FC<LoginProps> = () => {
     setErrMsg(validateUserData(userData));
     try {
       await login(userData.userEmail, userData.userPassword);
-      navigate("/home");
+      navigate('/home');
     } catch (error) {
       console.error(error);
-      setErrMsg("Invalid email or password");
+      setErrMsg('Invalid email or password');
     }
   };
 
@@ -108,10 +108,10 @@ const Login: React.FC<LoginProps> = () => {
       ...prevState,
       [event.target.id]: event.target.value,
     }));
-    const isError = ["err", "empt"].includes(
+    const isError = ['err', 'empt'].includes(
       determineAddressType(event.target.value)
     );
-    if (!isError) setErrMsg("");
+    if (!isError) setErrMsg('');
   };
 
   const formSubmitEvent = async (event: FormEvent<HTMLFormElement>) => {
@@ -128,41 +128,41 @@ const Login: React.FC<LoginProps> = () => {
 
   return (
     <HomeContainer>
-      <Navbar />
+      <NavbarDemo />
       <UserInputMain onSubmit={formSubmitEvent}>
-        <Heading as="h1" size="xLarge" align="center" color={colors.primary}>
+        <Heading as='h1' size='xLarge' align='center' color={colors.primary}>
           Login
         </Heading>
         <Typography
-          variant="h6"
+          variant='h6'
           sx={{
-            marginTop: "2rem",
-            marginLeft: "1rem",
+            marginTop: '2rem',
+            marginLeft: '1rem',
             color: colors.primary,
-            alignSelf: "center",
+            alignSelf: 'center',
           }}
         >
           Welcome back! Please sign in to continue.
         </Typography>
         <Box sx={{}}>
           <Input
-            id="userEmail"
+            id='userEmail'
             value={userData.userEmail}
             email
-            size="large"
-            orientation="vertical"
-            placeholder="Enter email"
+            size='large'
+            orientation='vertical'
+            placeholder='Enter email'
             disabled={inputDisabled}
             handleChange={inputChange}
           />
           <Input
-            id="userPassword"
+            id='userPassword'
             value={userData.userPassword}
             password
             email={false}
-            size="large"
-            orientation="vertical"
-            placeholder="Enter password"
+            size='large'
+            orientation='vertical'
+            placeholder='Enter password'
             disabled={inputDisabled}
             handleChange={inputChange}
           />
@@ -170,31 +170,31 @@ const Login: React.FC<LoginProps> = () => {
         </Box>
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "calc(100% - 2rem)",
-            margin: "1rem",
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: 'calc(100% - 2rem)',
+            margin: '1rem',
           }}
         >
-          <Button styles="width:50%" size="medium" onClick={submit}>
+          <Button styles='width:50%' size='medium' onClick={submit}>
             Login
           </Button>
           <Typography
-            variant="body1"
+            variant='body1'
             sx={{
-              marginTop: "1rem",
+              marginTop: '1rem',
               color: colors.primary,
             }}
           >
-            New user?{" "}
+            New user?{' '}
             <Link
-              component="button"
-              variant="body1"
+              component='button'
+              variant='body1'
               onClick={() => {
                 console.info("I'm a button.");
-                navigate("/auth/jwt/register");
+                navigate('/auth/jwt/register');
               }}
             >
               Create an account

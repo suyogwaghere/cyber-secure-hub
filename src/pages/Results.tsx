@@ -60,7 +60,7 @@ import TraceRouteCard from 'components/Results/TraceRoute';
 import TxtRecordCard from 'components/Results/TxtRecords';
 import WhoIsCard from 'components/Results/WhoIs';
 
-import Navbar from 'components/Navbar';
+import NavbarDemo from 'components/Navbar';
 import Footer from 'components/misc/Footer';
 import useMotherHook from 'hooks/motherOfAllHooks';
 import { AddressType, determineAddressType } from 'utils/address-type-checker';
@@ -985,7 +985,7 @@ const Results = (): JSX.Element => {
 
   return (
     <ResultsOuter>
-      <Navbar />
+      <NavbarDemo />
       <Nav>
         {address && (
           <Heading color={colors.textColor} size='medium'>

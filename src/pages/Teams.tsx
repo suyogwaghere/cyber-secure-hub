@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Heading from 'components/Form/Heading';
 
 import { Box, Grid } from '@mui/material';
-import Navbar from 'components/Navbar';
+import NavbarDemo from 'components/Navbar';
 import Footer from 'components/misc/Footer';
 import GenericProfileCard from 'components/misc/GenericProfileCard';
 import { FaGithubSquare, FaLinkedin, FaTwitterSquare } from 'react-icons/fa';
@@ -82,7 +82,6 @@ const profiles = [
 
 const HomeContainer = styled.section`
   display: flex;
-  margin-top: 1rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -97,7 +96,7 @@ const HomeContainer = styled.section`
 const Teams = (): JSX.Element => {
   return (
     <HomeContainer>
-      <Navbar />
+      <NavbarDemo />
       <Box py={4}>
         <Heading as='h1' size='xLarge' align='center' color={colors.primary}>
           Meet Our Team

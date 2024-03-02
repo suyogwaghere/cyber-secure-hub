@@ -1,9 +1,9 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import Heading from "components/Form/Heading";
-import ErrorBoundary from "components/misc/ErrorBoundary";
-import { ReactNode } from "react";
-import colors from "styles/colors";
+import Heading from 'components/Form/Heading';
+import ErrorBoundary from 'components/misc/ErrorBoundary';
+import { ReactNode } from 'react';
+import colors from 'styles/colors';
 
 export const StyledCard = styled.section<{ styles?: string }>`
   background: ${colors.backgroundLighter};
@@ -11,7 +11,7 @@ export const StyledCard = styled.section<{ styles?: string }>`
   border-radius: 8px;
   padding: 1rem;
   position: relative;
-  margin 0.5rem;
+  margin: 0.5rem;
   max-height: 66rem;
   overflow: auto;
   ${(props) => props.styles}
@@ -32,9 +32,9 @@ export const Card = (props: CardProps): JSX.Element => {
         {actionButtons && actionButtons}
         {heading && (
           <Heading
-            className="inner-heading"
-            as="h3"
-            align="left"
+            className='inner-heading'
+            as='h3'
+            align='left'
             color={colors.primary}
           >
             {heading}
