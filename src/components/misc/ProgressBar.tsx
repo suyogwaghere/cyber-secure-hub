@@ -473,10 +473,23 @@ const ProgressLoader = (props: {
   const handleFetchAll = async () => {
     try {
       const jobsToRetry = loadStatus.filter(
-        (job) =>
-          (job.state === 'error' || 'timed-out' || 'skipped') && job.retry
+        (job: any) =>
+          (job.state === 'error' ||
+            job.state === 'timed-out' ||
+            job.state === 'skipped') &&
+          job.retry
       );
-      await Promise.all(jobsToRetry.map((job: any) => job.retry()));
+
+      // Loop through the jobs to retry
+      for (const job of jobsToRetry) {
+        // Delay for 500ms before retrying the current job
+        await new Promise<void>((resolve) => setTimeout(resolve, 500));
+
+        // Retry the current job
+        if (typeof job.retry === 'function') {
+          await job.retry();
+        }
+      }
     } catch (error) {
       console.error('Error retrying all jobs:', error);
     }
