@@ -482,13 +482,13 @@ const ProgressLoader = (props: {
 
       // Loop through the jobs to retry
       for (const job of jobsToRetry) {
-        // Delay for 500ms before retrying the current job
-        await new Promise<void>((resolve) => setTimeout(resolve, 500));
-
         // Retry the current job
         if (typeof job.retry === 'function') {
           await job.retry();
         }
+
+        // Delay for 500ms before retrying the next job
+        await new Promise<void>((resolve) => setTimeout(resolve, 500));
       }
     } catch (error) {
       console.error('Error retrying all jobs:', error);
