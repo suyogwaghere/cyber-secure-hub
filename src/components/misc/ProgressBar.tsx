@@ -6,7 +6,7 @@ import colors from 'styles/colors';
 
 const LoadCard = styled(Card)`
   margin: 0 auto 1rem auto;
-  width: 95vw;
+  width: 100%;
   position: relative;
   transition: all 0.2s ease-in-out;
   &.hidden {

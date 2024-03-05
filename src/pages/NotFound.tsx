@@ -7,7 +7,7 @@ import { JSX } from 'react/jsx-runtime';
 import colors from 'styles/colors';
 
 const AboutContainer = styled.div`
-  width: 95vw;
+  width: 100%;
   max-width: 1000px;
   margin: 2rem auto;
   padding-bottom: 1rem;

@@ -1,12 +1,12 @@
-import Button from "components/Form/Button";
-import { Card } from "components/Form/Card";
-import { useState } from "react";
-import styled from "styled-components";
-import colors from "styles/colors";
+import Button from 'components/Form/Button';
+import { Card } from 'components/Form/Card';
+import { useState } from 'react';
+import styled from 'styled-components';
+import colors from 'styles/colors';
 
 const CardStyles = `
 margin: 0 auto 1rem auto;
-width: 95vw;
+width: 100%;
 position: relative;
 transition: all 0.2s ease-in-out;
 display: flex;
@@ -55,11 +55,11 @@ const ViewRaw = (props: { everything: { id: string; result: any }[] }) => {
 
   const fetchResultsUrl = async () => {
     const resultContent = makeResults();
-    const response = await fetch("https://jsonhero.io/api/create.json", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+    const response = await fetch('https://jsonhero.io/api/create.json', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        title: "cyber-secure-hub results",
+        title: 'cyber-secure-hub results',
         content: resultContent,
         readOnly: true,
         ttl: 3600,
@@ -75,12 +75,12 @@ const ViewRaw = (props: { everything: { id: string; result: any }[] }) => {
 
   const handleDownload = () => {
     const blob = new Blob([JSON.stringify(makeResults(), null, 2)], {
-      type: "application/json",
+      type: 'application/json',
     });
     const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
+    const link = document.createElement('a');
     link.href = url;
-    link.download = "cyber-secure-hub-results.json";
+    link.download = 'cyber-secure-hub-results.json';
     link.click();
     URL.revokeObjectURL(url);
   };
@@ -92,29 +92,29 @@ const ViewRaw = (props: { everything: { id: string; result: any }[] }) => {
     }
   };
   return (
-    <Card heading="View / Download Raw Data" styles={CardStyles}>
-      <div className="controls">
+    <Card heading='View / Download Raw Data' styles={CardStyles}>
+      <div className='controls'>
         <Button onClick={handleDownload}>Download Results</Button>
         <Button onClick={fetchResultsUrl}>
-          {resultUrl ? "Update Results" : "View Results"}
+          {resultUrl ? 'Update Results' : 'View Results'}
         </Button>
         {resultUrl && <Button onClick={handleViewResults}>Hide Results</Button>}
       </div>
       {(resultUrl || results) && !error ? (
         <>
           <StyledIframe
-            title="Results, via JSON Hero"
+            title='Results, via JSON Hero'
             src={resultUrl || results}
           />
           <small>
-            Your results are available to view{" "}
+            Your results are available to view{' '}
             <a href={resultUrl || results}>here</a>.
           </small>
         </>
       ) : (
         <p>No results available.</p>
       )}
-      {error && <p className="error">{error}</p>}
+      {error && <p className='error'>{error}</p>}
       <small>
         These are the raw results generated from your URL, and in JSON format.
         You can import these into your own program, for further analysis.

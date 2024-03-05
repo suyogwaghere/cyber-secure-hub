@@ -77,6 +77,7 @@ import {
 
 const ResultsOuter = styled.div`
   display: flex;
+  padding: 0 1rem;
   flex-direction: column;
   .masonry-grid {
     display: flex;
@@ -88,7 +89,7 @@ const ResultsOuter = styled.div`
 `;
 
 const ResultsContent = styled.section`
-  width: 95vw;
+  width: 100%;
   display: grid;
   grid-auto-flow: dense;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -99,7 +100,7 @@ const ResultsContent = styled.section`
 `;
 
 const FilterButtons = styled.div`
-  width: 95vw;
+  width: 100%;
   margin: auto;
   display: flex;
   flex-wrap: wrap;

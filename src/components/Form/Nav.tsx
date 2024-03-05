@@ -8,14 +8,14 @@ import { useRouter } from 'routes/hook';
 import colors from 'styles/colors';
 
 const Header = styled(StyledCard)`
-  margin: 1rem auto;
+  margin: 1rem 0px;
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
   padding: 0.5rem 1rem;
   align-items: center;
-  width: 95vw;
+  width: 100%;
 `;
 
 const Nav = (props: { children?: ReactNode }) => {
