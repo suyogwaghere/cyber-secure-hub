@@ -1,23 +1,23 @@
-const puppeteer = require("puppeteer-extra");
+const puppeteer = require('puppeteer-extra');
 // import { executablePath } from "puppeteer";
-const executablePath = require("puppeteer").executablePath();
-const StealthPlugin = require("puppeteer-extra-plugin-stealth");
+const executablePath = require('puppeteer').executablePath();
+const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 // const chromium = require("chrome-aws-lambda");
-const middleware = require("./_common/middleware");
+const middleware = require('./_common/middleware');
 
 const handler = async (targetUrl) => {
   if (!targetUrl) {
-    throw new Error("URL is missing from queryStringParameters");
+    throw new Error('URL is missing from queryStringParameters');
   }
 
-  if (!targetUrl.startsWith("http://") && !targetUrl.startsWith("https://")) {
-    targetUrl = "http://" + targetUrl;
+  if (!targetUrl.startsWith('http://') && !targetUrl.startsWith('https://')) {
+    targetUrl = 'http://' + targetUrl;
   }
 
   try {
     new URL(targetUrl);
   } catch (error) {
-    throw new Error("URL provided is invalid");
+    throw new Error('URL provided is invalid');
   }
 
   let browser = null;
@@ -25,12 +25,12 @@ const handler = async (targetUrl) => {
     puppeteer.use(StealthPlugin());
 
     browser = await puppeteer.launch({
-      headless: "new",
+      headless: 'new',
       // defaultViewport: { width: 800, height: 600 },
       executablePath: executablePath,
-      // ignoreHTTPSErrors: true,
-      // ignoreDefaultArgs: ["--disable-extensions"],
-      // args: ["--no-sandbox"],
+      ignoreHTTPSErrors: true,
+      ignoreDefaultArgs: ['--disable-extensions'],
+      args: ['--no-sandbox'],
     });
 
     let page = await browser.newPage();
@@ -40,12 +40,12 @@ const handler = async (targetUrl) => {
     // ]);
     page.setDefaultNavigationTimeout(8000);
     await page.goto(targetUrl, {
-      waitUntil: "domcontentloaded",
+      waitUntil: 'domcontentloaded',
       timeout: 7000,
     });
 
     await page.evaluate(() => {
-      const selector = "body";
+      const selector = 'body';
       return new Promise((resolve, reject) => {
         const element = document.querySelector(selector);
         if (!element) {
@@ -58,7 +58,7 @@ const handler = async (targetUrl) => {
     });
 
     const screenshotBuffer = await page.screenshot();
-    const base64Screenshot = screenshotBuffer.toString("base64");
+    const base64Screenshot = screenshotBuffer.toString('base64');
 
     return { image: base64Screenshot };
   } finally {
