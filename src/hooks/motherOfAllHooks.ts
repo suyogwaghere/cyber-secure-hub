@@ -115,8 +115,3 @@ const useMotherOfAllHooks = <ResultType = any>(
 };
 
 export default useMotherOfAllHooks;
-
-// I really fucking hate TypeScript sometimes....
-// Feels like a weak attempt at trying to make JavaScript less crappy,
-// when the real solution would be to just switch to a proper, typed, safe language
-// ... Either that, or I'm just really shit at it.

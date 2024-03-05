@@ -647,7 +647,7 @@ const Results = (): JSX.Element => {
         }
       });
     };
-    const timeoutId = setTimeout(checkJobs, 10000);
+    const timeoutId = setTimeout(checkJobs, 90000);
     return () => {
       clearTimeout(timeoutId);
     };
