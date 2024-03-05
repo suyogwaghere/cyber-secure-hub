@@ -41,7 +41,7 @@ const handler = async (targetUrl) => {
     page.setDefaultNavigationTimeout(8000);
     await page.goto(targetUrl, {
       waitUntil: 'domcontentloaded',
-      timeout: 7000,
+      timeout: 9000,
     });
 
     await page.evaluate(() => {
@@ -56,6 +56,8 @@ const handler = async (targetUrl) => {
         resolve();
       });
     });
+
+    await page.waitForTimeout(5000);
 
     const screenshotBuffer = await page.screenshot();
     const base64Screenshot = screenshotBuffer.toString('base64');
