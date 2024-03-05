@@ -26,7 +26,7 @@ const handler = async (targetUrl) => {
 
     browser = await puppeteer.launch({
       headless: 'new',
-      // defaultViewport: { width: 800, height: 600 },
+      defaultViewport: { width: 1920, height: 1080 },
       executablePath: executablePath,
       ignoreHTTPSErrors: true,
       ignoreDefaultArgs: ['--disable-extensions'],
