@@ -1,4 +1,5 @@
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-core');
+const chromium = require('chrome-aws-lambda');
 const middleware = require('./_common/middleware');
 
 const handler = async (targetUrl) => {
@@ -19,14 +20,16 @@ const handler = async (targetUrl) => {
   let browser = null;
   try {
     browser = await puppeteer.launch({
-      args: ['--no-sandbox'], // Add --no-sandbox flag
+      args: [...chromium.args, '--no-sandbox'], // Add --no-sandbox flag
       defaultViewport: { width: 800, height: 600 },
-      headless: true, // Set to true for headless mode
+      executablePath:
+        process.env.CHROME_PATH || (await chromium.executablePath()),
+      headless: chromium.headless,
       ignoreHTTPSErrors: true,
       ignoreDefaultArgs: ['--disable-extensions'],
     });
 
-    const page = await browser.newPage();
+    let page = await browser.newPage();
 
     await page.emulateMediaFeatures([
       { name: 'prefers-color-scheme', value: 'dark' },

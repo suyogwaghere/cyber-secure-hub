@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": false,
   "description": "All-in-one OSINT tool for analyzing any website",
-  "repository": "",
+  "repository": "github:suyogwaghere/cyber-secure-hub",
   "homepage": "",
   "author": {
     "name": "Suyog Waghere",
