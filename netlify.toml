@@ -1,0 +1,36 @@
+# Build settings and site core config
+[build]
+  base = "/"
+  command = "yarn build"
+  publish = "build"
+  functions = "api"
+
+# Environmental variables and optional secrets
+[build.environment]
+    CI="false" # Set CI to false, to prevent warnings from exiting the build
+
+# Redirect the /api/* path to the lambda functions
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 301
+  force = true
+
+# For router history mode, ensure pages land on index
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200  
+
+# Plugins
+[[plugins]]
+package = "netlify-plugin-chromium"
+  [plugins.inputs]
+  packageManager = "yarn"
+
+# Set any security headers here
+[[headers]]
+  for = "/*"
+  [headers.values]
+  # Uncomment to enable Netlify user control. Requires premium plan.
+  # Basic-Auth = "someuser:somepassword anotheruser:anotherpassword"
